@@ -1,0 +1,6 @@
+@font-face {
+  font-family: wagtail;
+  src: url(./fonts/wagtail.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}

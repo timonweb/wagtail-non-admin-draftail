@@ -1,0 +1,398 @@
+.non-admin-draftail__icon.teal {
+  color: #007d7e;
+}
+
+.non-admin-draftail__icon.white {
+  color: #fff;
+}
+
+.non-admin-draftail__icon:after,
+.non-admin-draftail__icon:before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: wagtail;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  speak: none;
+  text-decoration: none;
+  width: 1.3em;
+  line-height: 1em;
+  text-align: left;
+  vertical-align: middle;
+  margin-right: 0.2em;
+}
+
+.non-admin-draftail__icon:after {
+  text-align: right;
+}
+
+.non-admin-draftail__icon-arrow-down-big:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrow-down:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrow-left:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrow-right:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrow-up-big:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrow-up:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrows-up-down:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-bin:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-bold:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-chain-broken:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-code:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-cog:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-cogs:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-collapse-down:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-collapse-up:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-cross:before {
+  content: "";
+}
+
+.date_field .input:before,
+.date_time_field .input:before,
+.non-admin-draftail__icon-date:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-doc-empty-inverse:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-doc-empty:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-doc-full-inverse:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-doc-full:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-download:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-edit:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-folder-inverse:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-folder-open-1:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-folder-open-inverse:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-folder:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-form:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-grip:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-group:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-help:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-help-inverse:before {
+  content: "?";
+}
+
+.non-admin-draftail__icon-home:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-horizontalrule:before {
+  content: "—";
+}
+
+.non-admin-draftail__icon-image:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-italic:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-link:before,
+.url_field .input:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-list-ol:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-list-ul:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-locked:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-logout:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-mail:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-media:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-no-view:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-openquote:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-order-down:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-order-up:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-order:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-password:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-pick:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-pilcrow:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-placeholder:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-plus-inverse:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-plus:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-radio-empty:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-radio-full:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-redirect:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-repeat:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-search:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-site:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-snippet:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-spinner:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-strikethrough:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-subscript:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-success:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-superscript:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-table:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-tag:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-tick-inverse:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-tick:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-time:before,
+.time_field .input:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-title:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-undo:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-unlocked:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-user:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-view:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-wagtail-inverse:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-wagtail:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-warning:before {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrow-down-after:after {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrow-right-after:after {
+  content: "";
+}
+
+.non-admin-draftail__icon-arrow-up-after:after {
+  content: "";
+}
+
+.non-admin-draftail__icon-no-view:before,
+.non-admin-draftail__icon-view:before {
+  vertical-align: -3.5px;
+  font-size: 1.1rem;
+}
+
+.non-admin-draftail__icon-spinner:after,
+.non-admin-draftail__icon-spinner:before {
+  width: 1em;
+  animation: a 0.5s infinite linear;
+  display: inline-block;
+}
+
+.non-admin-draftail__icon-horizontalrule:before {
+  font-family: Open Sans, Arial, sans-serif;
+}
+
+.non-admin-draftail__icon-larger:before {
+  font-size: 1.5em;
+}
+
+.non-admin-draftail__icon.text-replace {
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.non-admin-draftail__icon.text-replace:before {
+  margin-right: 0;
+  font-size: 1rem;
+  display: inline-block;
+  width: 100%;
+  line-height: 1.2em;
+  text-align: center;
+  vertical-align: middle;
+}

@@ -1,0 +1,7 @@
+{% load wagtailadmin_tags %}
+<script>
+  (function (document, window) {
+    window.wagtailConfig = window.wagtailConfig || {};
+    wagtailConfig.STRINGS = {% js_translation_strings %};
+  })(document, window);
+</script>
