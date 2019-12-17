@@ -1,10 +1,11 @@
 [tool.poetry]
 name = "non_admin_draftail"
-version = "0.1.0"
+version = "0.1.1"
 description = "You can now use Wagtail Draftail editor on non-admin pages"
 authors = ["Tim Kamanin <tim@timonweb.com>"]
 license = "MIT"
-
+homepage = "https://timonweb.com"
+repository = "https://github.com/timonweb/non-admin-draftail"
 
 [tool.poetry.dependencies]
 python = "^3.7"
