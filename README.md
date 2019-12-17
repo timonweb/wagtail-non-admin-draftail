@@ -1,8 +1,8 @@
-# Public Draftail
+# Non-admin Draftail
 
 Wagtail has an excellent WYSIWYG editor called Draftail. Unfortunately, the editor can be used only on admin pages. But what if you want non-admin users to be able to use it?
 
-That is where Public Draftail comes to the rescue! This package provides a form widget that adds Draftail to a regular Django form that isn't a part of the admin interface. The only requirement is to have Wagtail installed.
+That is where Non-admin Draftail comes to the rescue! This package provides a form widget that adds Draftail to a regular Django form that isn't a part of the admin interface. The only requirement is to have Wagtail installed.
 
 # Installation
 
@@ -14,7 +14,19 @@ That is where Public Draftail comes to the rescue! This package provides a form 
         'non_admin_draftail',
     ]
     ```
-   
+3. Add `{% non_admin_draftail_strings %}` to the head of your base HTML template `base.html` (so that it's loaded on every page):
+```html
+{% load non_admin_draftail_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+ ...
+ {% non_admin_draftail_strings %}
+</head>
+<body></body>
+</html>
+```
+
 # Usage
 Given:
 
