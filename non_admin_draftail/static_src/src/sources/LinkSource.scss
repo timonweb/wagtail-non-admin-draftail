@@ -1,0 +1,38 @@
+.non-admin-draftail__LinkSource {
+  padding: 1rem;
+
+  label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.85rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background: #333;
+    border-radius: 3px;
+    &:disabled {
+      opacity: 0.75;
+    }
+  }
+}
+
+.non-admin-draftail__LinkSource__field {
+  margin-bottom: 0.25rem;
+}
+
+.non-admin-draftail__LinkSource__validationError {
+  color: red;
+  font-size: 0.85rem;
+}

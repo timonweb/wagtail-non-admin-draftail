@@ -98,12 +98,6 @@ ENV/
 # mkdocs documentation
 /site
 
-# End of https://www.gitignore.io/api/python
-
-# Created by https://www.gitignore.io/api/pycharm
-
-# Created by https://www.gitignore.io/api/macos
-
 ### macOS ###
 *.DS_Store
 .AppleDouble
@@ -127,7 +121,7 @@ ENV/
 Network Trash Folder
 Temporary Items
 .apdisk
-# End of https://www.gitignore.io/api/macos
 
 .idea
 node_modules
+Makefile
