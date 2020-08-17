@@ -14,7 +14,8 @@ That is where Non-admin Draftail comes to the rescue! This package provides a fo
         'non_admin_draftail',
     ]
     ```
-3. Add `{% non_admin_draftail_strings %}` to the head of your base HTML template `base.html` (so that it's loaded on every page):
+3. Add `path("non-admin-draftail/", include("non_admin_draftail.urls", namespace="non_admin_draftail")),` to the main `urls.py` of the project,
+4. Add `{% non_admin_draftail_strings %}` to the head of your base HTML template `base.html` (so that it's loaded on every page):
 ```html
 {% load non_admin_draftail_tags %}
 <!DOCTYPE html>
