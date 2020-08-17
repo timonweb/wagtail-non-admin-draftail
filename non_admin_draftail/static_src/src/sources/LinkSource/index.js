@@ -2,10 +2,10 @@ import React, {Component} from "react";
 
 import {RichUtils} from "draft-js";
 
-import Modal from "../components/Modal/Modal";
-import "./LinkSource.scss";
+import Modal from "../../components/Modal/Modal";
+import "./style.scss";
 
-class LinkSource extends Component {
+export class LinkSource extends Component {
   constructor(props) {
     super(props);
     const {entity} = this.props;
@@ -117,7 +117,7 @@ class LinkSource extends Component {
               onChange={this.onChangeURL}
               onBlur={this.onBlurURL}
               value={url}
-              placeholder="www.example.com"
+              placeholder="https://example.com"
             />
             {this.state.validationError && <p className="non-admin-draftail__LinkSource__validationError">
               {this.state.validationError}
@@ -131,8 +131,6 @@ class LinkSource extends Component {
 }
 
 const isValidUrl = url => {
-  const validUrlPattern = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
+  const validUrlPattern = /(((([A-Za-z]{3,9}:(?:\/\/)?)|\/)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
   return validUrlPattern.test(url.toLowerCase());
 };
-
-export default LinkSource;

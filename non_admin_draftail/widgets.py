@@ -2,7 +2,6 @@ from django import forms
 from django.forms import Media
 from django.utils.functional import cached_property
 from wagtail.admin.rich_text import DraftailRichTextArea
-from wagtail.admin.staticfiles import versioned_static
 
 
 class NonAdminDraftailRichTextArea(forms.TextInput, DraftailRichTextArea):

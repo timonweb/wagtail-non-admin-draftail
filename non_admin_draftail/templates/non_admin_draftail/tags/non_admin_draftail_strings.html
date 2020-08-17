@@ -5,3 +5,9 @@
     wagtailConfig.STRINGS = {% js_translation_strings %};
   })(document, window);
 </script>
+<script>
+  (function (document, window) {
+    window.nonAdminDraftailConfig = window.nonAdminDraftailConfig || {};
+    nonAdminDraftailConfig.URLS = {{ URLS }};
+  })(document, window);
+</script>

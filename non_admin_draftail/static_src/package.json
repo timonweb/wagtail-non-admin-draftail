@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "parcel build src/index.js --no-content-hash --no-source-maps -d ./../static/non_admin_draftail/draftail -o draftail"
+    "build": "parcel build src/index.js --no-content-hash --no-source-maps -d ./../static/non_admin_draftail/draftail -o draftail",
+    "dev": "parcel watch src/index.js -d ./../static/non_admin_draftail/draftail -o draftail"
   },
   "keywords": [],
   "author": "",
@@ -12,9 +13,9 @@
   "dependencies": {
     "draft-js": "0.10.5",
     "draftail": "^1.3.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-modal": "^3.11.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
