@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from .forms import ExampleForm
+from django.views.generic import CreateView
+
+from .forms import NoteForm
+from .models import Note
 
 
-def form_view(request):
-    return render(request, "example/form.html", {
-        "form": ExampleForm
-    })
+class CreateNoteView(CreateView):
+    model = Note
+    form_class = NoteForm
+    template_name = "example/form.html"
