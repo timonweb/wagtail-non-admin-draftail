@@ -1,23 +1,7 @@
-import json
-
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
-from django.core.validators import URLValidator
-from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.decorators.http import require_http_methods
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.embeds import embeds
-from wagtail.embeds.exceptions import (
-    EmbedNotFoundException,
-    EmbedUnsupportedProviderException,
-)
-from wagtail.embeds.finders.embedly import (
-    AccessDeniedEmbedlyException,
-    EmbedlyException,
-)
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm
@@ -32,51 +16,6 @@ from wagtail.search import index as search_index
 from non_admin_draftail.forms import get_image_form
 
 permission_checker = PermissionPolicyChecker(permission_policy)
-
-validate_url = URLValidator(message="Please enter a valid URL")
-
-
-@login_required
-@require_http_methods(["POST"])
-def embed_upload_view(request):
-    response = None
-    error = None
-
-    data = json.loads(request.body)
-    url = data["url"]
-
-    try:
-        validate_url(url)
-        embed_obj = embeds.get_embed(url)
-        response = {
-            "embedType": embed_obj.type,
-            "url": embed_obj.url,
-            "providerName": embed_obj.provider_name,
-            "authorName": embed_obj.author_name,
-            "thumbnail": embed_obj.thumbnail_url,
-            "title": embed_obj.title,
-        }
-    except ValidationError as e:
-        error = str(e)
-    except AccessDeniedEmbedlyException:
-        error = (
-            "There seems to be a problem with your embedly API key. "
-            "Please check your settings."
-        )
-    except (EmbedNotFoundException, EmbedUnsupportedProviderException):
-        error = "Cannot find an embed for this URL."
-    except EmbedlyException:
-        error = (
-            "There seems to be an error with Embedly while trying to embed this URL."
-            " Please try again later."
-        )
-    except Exception:
-        error = "Something went wrong, please try again"
-
-    if error:
-        return HttpResponse(error, status=400)
-
-    return JsonResponse(response)
 
 
 @permission_checker.require("add")
@@ -115,7 +54,7 @@ def image_upload(request):
                 )
                 return render_modal_workflow(
                     request,
-                    "non_admin_draftail/modals/image_select_format.html",
+                    "non_admin_draftail/image/select_format.html",
                     None,
                     {"image": image, "form": form},
                     json_data={"step": "select_format"},
@@ -139,7 +78,7 @@ def image_upload(request):
     context.update({"uploadform": form})
     return render_modal_workflow(
         request,
-        "non_admin_draftail/modals/image_upload.html",
+        "non_admin_draftail/image/upload.html",
         None,
         context,
         json_data=get_chooser_js_data(),
@@ -190,7 +129,7 @@ def image_select_format(request, image_id):
 
     return render_modal_workflow(
         request,
-        "non_admin_draftail/modals/image_select_format.html",
+        "non_admin_draftail/image/select_format.html",
         None,
         {"image": image, "form": form},
         json_data={"step": "select_format"},

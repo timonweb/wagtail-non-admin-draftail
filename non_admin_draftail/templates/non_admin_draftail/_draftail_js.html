@@ -1,0 +1,14 @@
+{% load non_admin_draftail_tags wagtailadmin_tags %}
+{% non_admin_draftail_strings %}
+<script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.5.1.min.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+{% include "wagtailadmin/pages/_editor_js.html" %}
+<script>
+    window.chooserUrls = window.chooserUrls || {};
+    window.chooserUrls.imageChooser = "{% url 'non_admin_draftail:image-upload' %}";
+    window.chooserUrls.embedsChooser = "{% url 'non_admin_draftail:embed-chooser' %}";
+    window.chooserUrls.pageChooser = "{% url 'non_admin_draftail:external-link' %}";
+</script>

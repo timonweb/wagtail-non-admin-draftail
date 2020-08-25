@@ -1,11 +1,6 @@
 from django import forms
-from non_admin_draftail.widgets import NonAdminDraftailRichTextArea
+from wagtail.admin.rich_text import DraftailRichTextArea
 
 
 class ExampleForm(forms.Form):
-    body = forms.CharField(widget=NonAdminDraftailRichTextArea)
-
-    class Meta:
-        widgets = {
-            "body": NonAdminDraftailRichTextArea()
-        }
+    body = forms.CharField(widget=DraftailRichTextArea)

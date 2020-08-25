@@ -11,6 +11,6 @@ register = template.Library()
 def non_admin_draftail_strings():
     return {
         'URLS': mark_safe(json.dumps({
-            'embed_upload': reverse('non_admin_draftail:embed-upload')
+            'embed_upload': reverse('non_admin_draftail:embed-chooser-upload')
         }))
     }

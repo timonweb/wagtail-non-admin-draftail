@@ -1,8 +1,9 @@
 {% extends "example/example_base.html" %}
+{% load wagtailadmin_tags %}
 
 {% block content %}
     <form>
-        {{ form }}
         {{ form.media }}
+        {{ form }}
     </form>
 {% endblock content %}

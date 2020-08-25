@@ -63,8 +63,10 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+        'NAME': 'local.sqlite',
     }
 }
 
 STATIC_URL = '/static/'
+
+WAGTAIL_SITE_NAME = 'Test project'

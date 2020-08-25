@@ -1,10 +1,11 @@
-{% load non_admin_draftail_tags %}
+{% load wagtailadmin_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-     {% non_admin_draftail_strings %}
+    {% include "non_admin_draftail/_draftail_css.html" %}
+    {% include "non_admin_draftail/_draftail_js.html" %}
 </head>
 <body>
 {% block content %}
