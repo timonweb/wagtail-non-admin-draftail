@@ -1,21 +1,13 @@
-from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
-
-from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.core import hooks
-from wagtail.core.models import Collection
 from wagtail.documents import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
 
 from non_admin_draftail.forms import get_document_form
-
-permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 def get_chooser_context():
@@ -66,7 +58,7 @@ def document_chosen(request, document_id):
     )
 
 
-@permission_checker.require('add')
+@login_required
 def document_chooser_upload(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)

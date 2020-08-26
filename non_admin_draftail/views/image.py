@@ -1,11 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm
-from wagtail.images.permissions import permission_policy
 from wagtail.images.views.chooser import (
     get_chooser_context,
     get_chooser_js_data,
@@ -15,10 +14,8 @@ from wagtail.search import index as search_index
 
 from non_admin_draftail.forms import get_image_form
 
-permission_checker = PermissionPolicyChecker(permission_policy)
 
-
-@permission_checker.require("add")
+@login_required
 def image_upload(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
