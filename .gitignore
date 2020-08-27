@@ -125,4 +125,4 @@ Temporary Items
 .idea
 node_modules
 media/
-.sqlite
+*.sqlite

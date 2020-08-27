@@ -33,15 +33,11 @@ def get_document_result_data(document):
         'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
     }
 
-
+@login_required
 def document_chooser(request):
     Document = get_document_model()
-
-    if permission_policy.user_has_permission(request.user, 'add'):
-        DocumentForm = get_document_form(Document)
-        uploadform = DocumentForm(user=request.user, prefix='document-chooser-upload')
-    else:
-        uploadform = None
+    DocumentForm = get_document_form(Document)
+    uploadform = DocumentForm(user=request.user, prefix='document-chooser-upload')
 
     return render_modal_workflow(request, 'non_admin_draftail/document/chooser.html', None, {
         'uploadform': uploadform,
