@@ -7,21 +7,42 @@ $modal-z-index: $modal__overlay-z-index + 1;
 
 $spacing-modal: 0.5rem;
 
-.modal {
-  position: absolute;
-  border-radius: 0.5rem;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  max-width: 500px;
-  transform: translate(-50%, -50%);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  z-index: $modal-z-index;
-  background-color: $color-bg-modal;
-  animation: modal-in 0.2s $easing-circ 0s backwards;
-  color: #013C3C;
+.Non-Admin-Draftail__modal-wrapper {
+  display: none;
+  .Non-Admin-Draftail__modal {
+    display: none;
+  }
 }
+
+.Non-Admin-Draftail__modal-wrapper.open {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $color-bg-modal__overlay;
+  z-index: $modal__overlay-z-index;
+
+  .Non-Admin-Draftail__modal {
+    position: absolute;
+    border-radius: 0.5rem;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    max-width: 500px;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: $modal-z-index;
+    background-color: $color-bg-modal;
+    animation: modal-in 0.2s $easing-circ 0s backwards;
+    color: #013C3C;
+  }
+}
+
 
 .modal-backdrop {
   position: fixed;
@@ -34,7 +55,7 @@ $spacing-modal: 0.5rem;
   cursor: pointer;
 }
 
-.modal-content {
+.Non-Admin-Draftail__modal-content {
   position: relative;
 
   .button.close {
@@ -53,4 +74,3 @@ $spacing-modal: 0.5rem;
     }
   }
 }
-
