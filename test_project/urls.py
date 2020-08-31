@@ -1,15 +1,18 @@
 from django.conf import settings
-from django.urls import path, include
 from django.contrib.auth.views import LoginView
+from django.urls import include, path
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
-    path("non-admin-draftail/", include("non_admin_draftail.urls", namespace="non_admin_draftail")),
+    path(
+        "non-admin-draftail/",
+        include("non_admin_draftail.urls", namespace="non_admin_draftail"),
+    ),
     path("example/", include("example.urls", namespace="example")),
-    path("login/", LoginView.as_view(), name="login")
+    path("login/", LoginView.as_view(), name="login"),
 ]
 
 if settings.DEBUG:

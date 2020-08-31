@@ -9,8 +9,9 @@ class PublicCollectionMemberForm(BaseCollectionMemberForm):
     """
     Base form that forces user uploads into a collection named "Public uploads"
     """
+
     def __init__(self, *args, **kwargs):
-        kwargs.pop('user')
+        kwargs.pop("user")
         super(forms.ModelForm, self).__init__(*args, **kwargs)
 
         # Get or initiate the Public uploads collection.
@@ -35,11 +36,7 @@ class PublicCollectionBaseImageForm(PublicCollectionMemberForm):
 
 
 def get_image_form(model):
-    fields = (
-        "title",
-        "file",
-        "collection"
-    )
+    fields = ("title", "file", "collection")
 
     return modelform_factory(
         model,
@@ -59,14 +56,19 @@ class PublicCollectionBaseDocumentForm(PublicCollectionMemberForm):
 
 
 def get_document_form(model):
-    fields = ("title", "file", "collection", )
+    fields = (
+        "title",
+        "file",
+        "collection",
+    )
 
     return modelform_factory(
         model,
         form=PublicCollectionBaseDocumentForm,
         fields=fields,
         widgets={
-            'file': forms.FileInput(),
+            "file": forms.FileInput(),
             # Collection input should not be visible to end user.
-            'collection': forms.HiddenInput(),
-        })
+            "collection": forms.HiddenInput(),
+        },
+    )

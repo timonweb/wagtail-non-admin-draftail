@@ -9,6 +9,4 @@ class NoteForm(forms.ModelForm):
         model = Note
         fields = ["text"]
 
-        widgets = {
-            "text": DraftailRichTextArea
-        }
+        widgets = {"text": DraftailRichTextArea}

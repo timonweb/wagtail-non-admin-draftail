@@ -7,10 +7,14 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 
-@register.inclusion_tag(filename='non_admin_draftail/tags/non_admin_draftail_strings.html')
+@register.inclusion_tag(
+    filename="non_admin_draftail/tags/non_admin_draftail_strings.html"
+)
 def non_admin_draftail_strings():
     return {
-        'URLS': mark_safe(json.dumps({
-            'embed_upload': reverse('non_admin_draftail:embed-chooser-upload')
-        }))
+        "URLS": mark_safe(
+            json.dumps(
+                {"embed_upload": reverse("non_admin_draftail:embed-chooser-upload")}
+            )
+        )
     }
