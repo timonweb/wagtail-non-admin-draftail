@@ -68,18 +68,18 @@ def image_upload(request):
                         "result": get_image_result_data(image),
                     },
                 )
-        else:
-            form = ImageForm(user=request.user, prefix="image-chooser-upload")
+    else:
+        form = ImageForm(user=request.user, prefix="image-chooser-upload")
 
-        context = get_chooser_context(request)
-        context.update({"uploadform": form})
-        return render_modal_workflow(
-            request,
-            "non_admin_draftail/image/upload.html",
-            None,
-            context,
-            json_data=get_chooser_js_data(),
-        )
+    context = get_chooser_context(request)
+    context.update({"uploadform": form})
+    return render_modal_workflow(
+        request,
+        "non_admin_draftail/image/upload.html",
+        None,
+        context,
+        json_data=get_chooser_js_data(),
+    )
 
 
 @login_required
