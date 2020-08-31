@@ -1,11 +1,24 @@
-{% load non_admin_draftail_tags wagtailadmin_tags %}
-{% non_admin_draftail_strings %}
+{% load wagtailadmin_tags %}
+
+{# Translation strings object that Draftail requires #}
+<script>
+    (function (document, window) {
+        window.wagtailConfig = window.wagtailConfig || {};
+        wagtailConfig.STRINGS = {% js_translation_strings %};
+    })(document, window);
+</script>
+
+{# Core scripts used in Wagtail admin #}
 <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.5.1.min.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+
+{# Scripts needed for Draftail to function #}
 {% include "wagtailadmin/pages/_editor_js.html" %}
+
+{# Override url callbacks for non-admin Draftail #}
 <script>
     window.chooserUrls = window.chooserUrls || {};
     window.chooserUrls.imageChooser = "{% url 'non_admin_draftail:image-upload' %}";

@@ -1,5 +1,6 @@
 from django import forms
-from wagtail.admin.rich_text import DraftailRichTextArea
+
+from non_admin_draftail.widgets import NonAdminDraftailRichTextArea
 
 from .models import Note
 
@@ -9,4 +10,4 @@ class NoteForm(forms.ModelForm):
         model = Note
         fields = ["text"]
 
-        widgets = {"text": DraftailRichTextArea}
+        widgets = {"text": NonAdminDraftailRichTextArea}
