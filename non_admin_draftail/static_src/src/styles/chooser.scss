@@ -34,10 +34,12 @@
       font-weight: bold;
       font-size: 0.85rem;
       text-transform: uppercase;
+      margin-bottom: 4px;
     }
 
     ul label {
       text-transform: none;
+      margin-bottom: 0;
     }
 
     input:not([type=radio]):not([type=checkbox]) {
@@ -68,5 +70,16 @@
     color: #333;
     padding: 0.75rem 1rem;
     margin: -1rem -1rem 1rem -1rem;
+  }
+
+  #id_image-chooser-insertion-format {
+    margin-top: 0;
+  }
+}
+
+.Non-Admin-Draftail__image-preview {
+  img {
+    display: block;
+    margin: 0 auto;
   }
 }

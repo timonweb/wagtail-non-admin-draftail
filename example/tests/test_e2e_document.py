@@ -18,7 +18,7 @@ def test_document_button(ensure_root_collection, authenticated_page, live_server
 
     # Upload example file
     file_input = authenticated_page.querySelector(".modal form [type=file]")
-    file_input.setInputFiles("example/tests/seed/example.png")
+    file_input.setInputFiles("example/tests/seed/example.txt")
 
     # Name example file
     authenticated_page.fill(".modal form [type=text]", "whatever")
@@ -29,7 +29,7 @@ def test_document_button(ensure_root_collection, authenticated_page, live_server
     # Modal is hidden
     authenticated_page.waitForSelector(".modal", state="hidden")
 
-    # Make sure document is embeded in draftail
+    # Make sure document is embedded in draftail
     file_embed = authenticated_page.querySelector(".Draftail-Editor a.TooltipEntity")
     assert "whatever" == file_embed.textContent(), "Uploaded file has name set"
     assert "example" in file_embed.getAttribute("href"), "Embed links to uploaded file"

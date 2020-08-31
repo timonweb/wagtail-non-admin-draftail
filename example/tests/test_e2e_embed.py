@@ -27,7 +27,7 @@ def test_embed_button(authenticated_page, live_server):
     # Modal is hidden
     authenticated_page.waitForSelector(".modal", state="hidden")
 
-    # Make sure image is embeded in draftail
+    # Make sure image is embedded in draftail
     authenticated_page.waitForSelector(".Draftail-Editor img.MediaBlock__img")
     image = authenticated_page.querySelector(".Draftail-Editor img.MediaBlock__img")
     assert YOUTUBE_VIDEO_ID in image.getAttribute("src")

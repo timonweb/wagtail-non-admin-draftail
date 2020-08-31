@@ -5,8 +5,11 @@
 {% block title %}{% trans "Choose a format" %}{% endblock %}
 
 {% block form %}
-    {% image image max-800x600 %}
-    <form action="{% url 'non_admin_draftail:image-select-format' image.id %}" method="POST" novalidate>
+    <div class="Non-Admin-Draftail__image-preview">
+        {% image image max-400x300 %}
+    </div>
+    <form action="{% url 'non_admin_draftail:image-select-format' image.id %}"
+          method="POST" novalidate>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">{% trans 'Insert image' %}</button>

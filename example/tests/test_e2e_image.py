@@ -35,7 +35,7 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     # Modal is hidden
     authenticated_page.waitForSelector(".modal", state="hidden")
 
-    # Make sure image is embeded in draftail
+    # Make sure image is embedded in draftail
     authenticated_page.waitForSelector(".Draftail-Editor img.MediaBlock__img")
 
     # Click on image again and make sure modal is show again
