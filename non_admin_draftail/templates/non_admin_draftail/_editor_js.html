@@ -8,27 +8,27 @@
 {% allow_unicode_slugs as unicode_slugs_enabled %}
 <script>
     window.chooserUrls = {
-        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
-        'externalLinkChooser': '{% url "wagtailadmin_choose_page_external_link" %}',
-        'emailLinkChooser': '{% url "wagtailadmin_choose_page_email_link" %}',
-        'phoneLinkChooser': '{% url "wagtailadmin_choose_page_phone_link" %}',
-        'anchorLinkChooser': '{% url "wagtailadmin_choose_page_anchor_link" %}',
-        'taskChooser': '{% url "wagtailadmin_workflows:task_chooser" %}',
+        {#'pageChooser': '{% url "non_admin_draftail:external-link" %}',#}
+        {#'externalLinkChooser': '{% url "non_admin_draftail:external-link" %}',#}
+        {#'emailLinkChooser': '{% url "non_admin_draftail:email-link" %}',#}
+        {#'phoneLinkChooser': '{% url "non_admin_draftail:phone-link" %}',#}
+        {#'anchorLinkChooser': '{% url "non_admin_draftail:anchor-link" %}',#}
+        {#//'taskChooser': '{% url "wagtailadmin_workflows:task_chooser" %}',#}
     };
-    window.unicodeSlugsEnabled = {% if unicode_slugs_enabled %}true{% else %}false{% endif %};
+    //window.unicodeSlugsEnabled = {% if unicode_slugs_enabled %}true{% else %}false{% endif %};
 </script>
 
-<script src="{% versioned_static 'wagtailadmin/js/vendor/rangy-core.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/vendor/mousetrap.min.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/expanding_formset.js' %}"></script>
+{#<script src="{% versioned_static 'wagtailadmin/js/vendor/rangy-core.js' %}"></script>#}
+{#<script src="{% versioned_static 'wagtailadmin/js/vendor/mousetrap.min.js' %}"></script>#}
+{#<script src="{% versioned_static 'wagtailadmin/js/expanding_formset.js' %}"></script>#}
 {# We replace wagtailadmin/js/modal-workflow with the following file to add distinct css class to modal #}
 <script src="{% versioned_static 'non_admin_draftail/js/modal-workflow.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/page-editor.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/vendor/xregexp.min.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/vendor/urlify.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/workflow-status.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/lock-unlock-action.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
+{#<script src="{% versioned_static 'wagtailadmin/js/page-editor.js' %}"></script>#}
+{#<script src="{% versioned_static 'wagtailadmin/js/vendor/xregexp.min.js' %}"></script>#}
+{#<script src="{% versioned_static 'wagtailadmin/js/vendor/urlify.js' %}"></script>#}
+{#<script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>#}
+{#<script src="{% versioned_static 'wagtailadmin/js/workflow-status.js' %}"></script>#}
+{#<script src="{% versioned_static 'wagtailadmin/js/lock-unlock-action.js' %}"></script>#}
+{#<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>#}
 
 {% hook_output 'insert_editor_js' %}

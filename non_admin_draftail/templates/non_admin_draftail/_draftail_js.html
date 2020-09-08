@@ -5,25 +5,32 @@
     (function (document, window) {
         window.wagtailConfig = window.wagtailConfig || {};
         wagtailConfig.STRINGS = {% js_translation_strings %};
+        window.chooserUrls = {};
     })(document, window);
 </script>
 
 {# Core scripts used in Wagtail admin #}
 <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.5.1.min.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
+{#<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>#}
 <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
 
-{# Scripts needed for Draftail to function #}
-{% include "non_admin_draftail/_editor_js.html" %}
+{# We replace wagtailadmin/js/modal-workflow with the following file to add distinct css class to modal #}
+<script src="{% versioned_static 'non_admin_draftail/js/modal-workflow.js' %}"></script>
+
+{# Add JavaScript that comes from inser_editor_js Wagtail hook #}
+{% hook_output 'insert_editor_js' %}
 
 {# Override url callbacks for non-admin Draftail #}
 <script>
     window.chooserUrls = window.chooserUrls || {};
     window.chooserUrls.imageChooser = "{% url 'non_admin_draftail:image-upload' %}";
+    window.chooserUrls.documentChooser = "{% url 'non_admin_draftail:document-chooser' %}";
     window.chooserUrls.embedsChooser = "{% url 'non_admin_draftail:embed-chooser' %}";
     window.chooserUrls.pageChooser = "{% url 'non_admin_draftail:external-link' %}";
     window.chooserUrls.externalLinkChooser = "{% url 'non_admin_draftail:external-link' %}";
-    window.chooserUrls.documentChooser = "{% url 'non_admin_draftail:document-chooser' %}";
+    window.chooserUrls.emailLinkChooser = "{% url 'non_admin_draftail:email-link' %}";
+    window.chooserUrls.phoneLinkChooser = "{% url 'non_admin_draftail:phone-link' %}";
+    window.chooserUrls.anchorLinkChooser = "{% url 'non_admin_draftail:anchor-link' %}";
 </script>
