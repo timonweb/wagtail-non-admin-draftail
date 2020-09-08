@@ -4,25 +4,34 @@ possibly after several navigation steps
 */
 
 
-class NewModal {
-    constructor(el) {
-        this.el = el
-        this.listen();
-    }
+function SimpleModal(el) {
+    var modal = $("[role=dialog]", el);
 
-    listen() {
-        const close = this.el.querySelector('[data-action="close"]');
+    function listen() {
+        var close = $('[data-action="close"]', el);
         if (close) {
-            close.addEventListener("click", this.hide.bind(this));
+            close.on("click", hide);
         }
     }
 
-    show() {
-        this.el.classList.add("open");
+    function show() {
+        el.addClass("open");
+        modal.attr("tabindex", 0);
     }
 
-    hide() {
-        this.el.classList.remove("open");
+    function hide() {
+        el.removeClass("open");
+        modal.attr("tabindex", -1);
+        // We dispatch this event because Draftail listens to it
+        // and releases toolbar from "readonly" state on close.
+        $(document.body).trigger("hidden.bs.modal");
+    }
+
+    listen();
+
+    return {
+        show: show,
+        hide: hide
     }
 }
 
@@ -39,18 +48,16 @@ function ModalWorkflow(opts) {
     var responseCallbacks = opts.responses || {};
     var errorCallback = opts.onError || function () {
     };
-
     /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
     $('body > .Non-Admin-Draftail__modal-wrapper').remove();
 
     // set default contents of container
     var iconClose = '<svg class="icon icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross"></use></svg>';
-    var container = $('<div class="Non-Admin-Draftail__modal-wrapper"><div class="Non-Admin-Draftail__modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n    <div class="Non-Admin-Draftail__modal-dialog">\n        <div class="Non-Admin-Draftail__modal-content">\n            <button type="button" data-action="close" class="button close button--icon text-replace" >' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button>\n            <div class="Non-Admin-Draftail__modal-body"></div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div></div>');
+    var container = $('<div class="Non-Admin-Draftail__modal-wrapper"><div class="Non-Admin-Draftail__modal" role="dialog" aria-modal="true"><button type="button" data-action="close" class="Non-Admin-Draftail__modal-close" >' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button><div class="Non-Admin-Draftail__modal-body"></div></div></div>');
 
     // add container to body and hide it, so content can be added to it before display
     $('body').append(container);
-    //container.modal('hide');
-    var modal = new NewModal(container[0]);
+    var modal = SimpleModal(container);
 
     self.body = container.find('.Non-Admin-Draftail__modal-body');
 
@@ -107,7 +114,6 @@ function ModalWorkflow(opts) {
     };
 
     self.close = function () {
-        //container.modal('hide');
         modal.hide();
     };
 

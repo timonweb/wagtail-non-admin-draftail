@@ -13,21 +13,23 @@ def test_document_button(ensure_root_collection, authenticated_page, live_server
     authenticated_page.click("button[name=DOCUMENT]")
 
     # Wait for modal to appear
-    authenticated_page.waitForSelector(".modal", state="visible")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="visible")
     authenticated_page.waitForSelector("text=Upload a document", state="visible")
 
     # Upload example file
-    file_input = authenticated_page.querySelector(".modal form [type=file]")
+    file_input = authenticated_page.querySelector(
+        ".Non-Admin-Draftail__modal form [type=file]"
+    )
     file_input.setInputFiles("example/tests/seed/example.txt")
 
     # Name example file
-    authenticated_page.fill(".modal form [type=text]", "whatever")
+    authenticated_page.fill(".Non-Admin-Draftail__modal form [type=text]", "whatever")
 
     # Submit the form
-    authenticated_page.click(".modal form [type=submit]")
+    authenticated_page.click(".Non-Admin-Draftail__modal form [type=submit]")
 
     # Modal is hidden
-    authenticated_page.waitForSelector(".modal", state="hidden")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="hidden")
 
     # Make sure document is embedded in draftail
     file_embed = authenticated_page.querySelector(".Draftail-Editor a.TooltipEntity")
@@ -37,7 +39,7 @@ def test_document_button(ensure_root_collection, authenticated_page, live_server
     # Click on image again and make sure modal is show again
     # We test if the toolbar was properly unlocked.
     authenticated_page.click("button[name=DOCUMENT]")
-    authenticated_page.waitForSelector(".modal", state="visible")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="visible")
     authenticated_page.waitForSelector("text=Upload a document", state="visible")
 
     # Ensure uploaded document is added to "Public uploads" collection

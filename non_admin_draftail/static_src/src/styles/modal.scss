@@ -9,6 +9,7 @@ $spacing-modal: 0.5rem;
 
 .Non-Admin-Draftail__modal-wrapper {
   display: none;
+
   .Non-Admin-Draftail__modal {
     display: none;
   }
@@ -27,6 +28,7 @@ $spacing-modal: 0.5rem;
   z-index: $modal__overlay-z-index;
 
   .Non-Admin-Draftail__modal {
+    display: block;
     position: absolute;
     border-radius: 0.5rem;
     left: 50%;
@@ -43,34 +45,18 @@ $spacing-modal: 0.5rem;
   }
 }
 
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: $color-bg-modal__overlay;
-  z-index: $modal__overlay-z-index;
+.Non-Admin-Draftail__modal-close {
+  position: absolute;
   cursor: pointer;
-}
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-content: baseline;
+  justify-content: center;
 
-.Non-Admin-Draftail__modal-content {
-  position: relative;
-
-  .button.close {
-    position: absolute;
-    cursor: pointer;
-    top: 1rem;
-    right: 1rem;
-    display: flex;
-    align-content: baseline;
-    justify-content: center;
-
-    svg {
-      width: 1em;
-      height: 1em;
-      margin-right: .25rem;
-    }
+  svg {
+    width: 1em;
+    height: 1em;
+    margin-right: .25rem;
   }
 }

@@ -13,15 +13,17 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     authenticated_page.click("button[name=IMAGE]")
 
     # Wait for modal to appear
-    authenticated_page.waitForSelector(".modal", state="visible")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="visible")
     authenticated_page.waitForSelector("text=Upload an image", state="visible")
 
     # Upload example file
-    file_input = authenticated_page.querySelector(".modal form [type=file]")
+    file_input = authenticated_page.querySelector(
+        ".Non-Admin-Draftail__modal form [type=file]"
+    )
     file_input.setInputFiles("example/tests/seed/example.png")
 
     # Submit the form
-    authenticated_page.click(".modal form [type=submit]")
+    authenticated_page.click(".Non-Admin-Draftail__modal form [type=submit]")
 
     # User sees the next modal "Choose a format"
     authenticated_page.waitForSelector("text=Choose a format")
@@ -33,7 +35,7 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     authenticated_page.click(".Non-Admin-Draftail__content form [type=submit]")
 
     # Modal is hidden
-    authenticated_page.waitForSelector(".modal", state="hidden")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="hidden")
 
     # Make sure image is embedded in draftail
     authenticated_page.waitForSelector(".Draftail-Editor img.MediaBlock__img")
@@ -41,7 +43,7 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     # Click on image again and make sure modal is show again
     # We test if the toolbar was properly unlocked.
     authenticated_page.click("button[name=IMAGE]")
-    authenticated_page.waitForSelector(".modal", state="visible")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="visible")
     authenticated_page.waitForSelector("text=Upload an image", state="visible")
 
     # Ensure uploaded image is added to "Public uploads" collection

@@ -12,7 +12,7 @@ def test_embed_button(authenticated_page, live_server):
     authenticated_page.click("button[name=EMBED]")
 
     # Wait for modal to appear
-    authenticated_page.waitForSelector(".modal", state="visible")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="visible")
     authenticated_page.waitForSelector("text=Insert embed", state="visible")
 
     # Upload example file
@@ -22,10 +22,10 @@ def test_embed_button(authenticated_page, live_server):
     )
 
     # Submit the form
-    authenticated_page.click(".modal form [type=submit]")
+    authenticated_page.click(".Non-Admin-Draftail__modal form [type=submit]")
 
     # Modal is hidden
-    authenticated_page.waitForSelector(".modal", state="hidden")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="hidden")
 
     # Make sure image is embedded in draftail
     authenticated_page.waitForSelector(".Draftail-Editor img.MediaBlock__img")
@@ -35,5 +35,5 @@ def test_embed_button(authenticated_page, live_server):
     # Click on image again and make sure modal is show again
     # We test if the toolbar was properly unlocked.
     authenticated_page.click("button[name=EMBED]")
-    authenticated_page.waitForSelector(".modal", state="visible")
+    authenticated_page.waitForSelector(".Non-Admin-Draftail__modal", state="visible")
     authenticated_page.waitForSelector("text=Insert embed", state="visible")
