@@ -1,33 +1,23 @@
-from django import forms
-from django.forms import Media
-from django.utils.functional import cached_property
 from wagtail.admin.rich_text import DraftailRichTextArea
 
 
-class NonAdminDraftailRichTextArea(forms.TextInput, DraftailRichTextArea):
-    template_name = 'non_admin_draftail/widgets/non_admin_draftail_rich_text_area.html'
+class NonAdminDraftailRichTextArea(DraftailRichTextArea):
+    """
+    This widget is a complete copy of the original DraftailRichTextArea widget,
+    in most cases you don't need to use it.
+    However, if you need to override the widget template and don't want to mess
+    draftail widget for Wagtail admin, you might find it useful.
 
-    @cached_property
-    def media(self):
-        media = Media(js=[
-            'non_admin_draftail/draftail/draftail.js',
-        ], css={
-            'all': [
-                # CSS from Draftail bundle
-                'non_admin_draftail/draftail/draftail.css',
-                # CSS from Wagtail admin (black toolbar theme)
-                'wagtailadmin/css/panels/draftail.css',
-                # Wagtail font (for toolbar icons)
-                'non_admin_draftail/fonts/wagtail-font.css'
-            ]
-        })
+    Copy the template below and override it in your project, then use this widget on your
+    non-admin form.
+    Example:
+        ```
+        class NoteForm(forms.ModelForm):
+            class Meta:
+                model = Note
+                fields = ["text"]
+                widgets = {"text": NonAdminDraftailRichTextArea}
+        ```
+    """
 
-        for plugin in self.plugins:
-            media += plugin.media
-
-        return media
-
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-        context['widget']['attrs']['class'] = 'non-admin-draftail__hidden-input'
-        return context
+    template_name = "non_admin_draftail/widgets/non_admin_draftail_rich_text_area.html"

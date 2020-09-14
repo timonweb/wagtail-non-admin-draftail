@@ -1,0 +1,17 @@
+{% extends "non_admin_draftail/modal_base.html" %}
+{% load wagtailimages_tags %}
+{% load i18n %}
+
+{% block title %}{% trans "Choose a format" %}{% endblock %}
+
+{% block form %}
+    <div class="Non-Admin-Draftail__image-preview">
+        {% image image max-400x300 %}
+    </div>
+    <form action="{% url 'non_admin_draftail:image-select-format' image.id %}"
+          method="POST" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans 'Insert image' %}</button>
+    </form>
+{% endblock %}

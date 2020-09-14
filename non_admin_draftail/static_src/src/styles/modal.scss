@@ -1,0 +1,62 @@
+$easing-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+$color-bg-modal__overlay: rgba(0, 0, 0, 0.75);
+$color-bg-modal: #fff;
+
+$modal__overlay-z-index: 30;
+$modal-z-index: $modal__overlay-z-index + 1;
+
+$spacing-modal: 0.5rem;
+
+.Non-Admin-Draftail__modal-wrapper {
+  display: none;
+
+  .Non-Admin-Draftail__modal {
+    display: none;
+  }
+}
+
+.Non-Admin-Draftail__modal-wrapper.open {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $color-bg-modal__overlay;
+  z-index: $modal__overlay-z-index;
+
+  .Non-Admin-Draftail__modal {
+    display: block;
+    position: absolute;
+    border-radius: 0.5rem;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    max-width: 500px;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: $modal-z-index;
+    background-color: $color-bg-modal;
+    animation: modal-in 0.2s $easing-circ 0s backwards;
+    color: #013C3C;
+  }
+}
+
+.Non-Admin-Draftail__modal-close {
+  position: absolute;
+  cursor: pointer;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-content: baseline;
+  justify-content: center;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    margin-right: .25rem;
+  }
+}

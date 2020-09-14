@@ -1,0 +1,85 @@
+.Non-Admin-Draftail__content {
+  padding: 1rem;
+
+  form {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    > * + * {
+      margin-top: 1rem;
+    }
+
+    .errorlist {
+      color: red;
+    }
+
+    ul {
+      list-style: none;
+
+      li {
+        list-style: none;
+      }
+    }
+
+    .helptext {
+      display: block;
+      font-size: 80%;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    ul label {
+      text-transform: none;
+      margin-bottom: 0;
+    }
+
+    input:not([type=radio]):not([type=checkbox]) {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      color: #fff;
+      background: #03686A;
+      border-radius: 3px;
+      text-transform: uppercase;
+      border: 0;
+
+      &:disabled {
+        opacity: 0.75;
+      }
+    }
+  }
+
+  .Non-Admin-Draftail__header {
+    background-color: #efefef;
+    color: #333;
+    padding: 0.75rem 1rem;
+    margin: -1rem -1rem 1rem -1rem;
+  }
+
+  #id_image-chooser-insertion-format {
+    margin-top: 0;
+  }
+}
+
+.Non-Admin-Draftail__image-preview {
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+}

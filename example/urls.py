@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import form_view
+
+from .views import CreateNoteView
 
 app_name = "example"
 
 urlpatterns = [
-    path("form/", form_view, name='form'),
+    path("form/", CreateNoteView.as_view(), name="form"),
 ]

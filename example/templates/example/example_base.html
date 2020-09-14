@@ -1,10 +1,10 @@
-{% load non_admin_draftail_tags %}
+{% load wagtailadmin_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-     {% non_admin_draftail_strings %}
+    {% block non_admin_draftail_head %}{% endblock non_admin_draftail_head %}
 </head>
 <body>
 {% block content %}

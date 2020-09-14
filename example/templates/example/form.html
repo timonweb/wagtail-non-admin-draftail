@@ -1,8 +1,14 @@
 {% extends "example/example_base.html" %}
+{% load wagtailadmin_tags %}
+
+{% block non_admin_draftail_head %}
+  {% include "non_admin_draftail/draftail_media.html" %}
+{% endblock non_admin_draftail_head %}
 
 {% block content %}
+    {{ user }}
     <form>
-        {{ form }}
         {{ form.media }}
+        {{ form }}
     </form>
 {% endblock content %}
