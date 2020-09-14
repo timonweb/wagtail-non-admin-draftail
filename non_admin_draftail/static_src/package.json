@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "parcel build src/index.js --no-content-hash --no-source-maps -d ./../static/non_admin_draftail/dist -o draftail && rm ./../static/non_admin_draftail/dist/draftail.js",
-    "dev": "parcel watch src/index.js -d ./../static/non_admin_draftail/dist -o draftail"
+    "build": "parcel build src/index.js --no-content-hash --no-source-maps -d ./../static/non_admin_draftail -o draftail && rm ./../static/non_admin_draftail/draftail.js",
+    "dev": "parcel watch src/index.js -d ./../static/non_admin_draftail -o draftail"
   },
   "keywords": [],
   "author": "",
