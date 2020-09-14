@@ -6,7 +6,7 @@
 {% block title %}{% trans "Insert embed" %}{% endblock title %}
 
 {% block form %}
-    <form class="embed-form" action="{% url 'non_admin_draftail:embed-chooser-upload' %}" method="POST" novalidate>
+    <form class="embed-form" action="{% url 'non_admin_draftail:embed-upload' %}" method="POST" novalidate>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">{% trans 'Insert' %}</button>

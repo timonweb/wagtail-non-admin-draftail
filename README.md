@@ -1,8 +1,8 @@
 # Non-admin Draftail
 
-Wagtail has an excellent WYSIWYG editor called Draftail. Unfortunately, the editor can be used only on admin pages. But what if you want non-admin users to be able to use it?
+Wagtail has an excellent WYSIWYG editor called Draftail. Unfortunately, the editor can be used only on admin pages. But what if you want to use it on non-admin pages, like Django form view pages?
 
-That is where Non-admin Draftail comes to the rescue! This package provides a form widget that adds Draftail to a regular Django form that isn't a part of the admin interface. The only requirement is to have Wagtail installed.
+This is where Non-admin Draftail comes to the rescue! The package provides all the necessary magic to free Draftail from Wagtail admin and make it usable with a regular Django form that doesn't belong to the CMS admin interface. The only requirement is, of course, to have Wagtail installed.
 
 # Installation
 
@@ -14,23 +14,39 @@ That is where Non-admin Draftail comes to the rescue! This package provides a fo
         'non_admin_draftail',
     ]
     ```
-3. Add 
+3. Add
     ```python
     path("non-admin-draftail/", include("non_admin_draftail.urls", namespace="non_admin_draftail")),
     ```
     to the main `urls.py` of the project
-4. Add `{% non_admin_draftail_strings %}` to the head of your base HTML template `base.html` (so that it's loaded on every page):
-```html
-{% load non_admin_draftail_tags %}
-<!DOCTYPE html>
-<html>
-<head>
- ...
- {% non_admin_draftail_strings %}
-</head>
-<body></body>
-</html>
-```
+4. Include `"non_admin_draftail/draftail_media.html"` in the `<head>` of every page that will have the editor.
+There are many ways to do this. I like doing this the following way:
+
+    a. Add `{% block non_admin_draftail_head %}` block to the `<head>` of your `base.html` file:
+
+    ```html
+    {% load non_admin_draftail_tags %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+     ...
+     {% block non_admin_draftail_head %}{% endblock non_admin_draftail_head %}
+    </head>
+    <body></body>
+    </html>
+    ```
+
+    b. Then add `non_admin_draftail/draftail_media.html` to `non_admin_draftail_head` block on
+    every page that uses the editor.
+
+    For example, we have a page template `post_edit.html` that renders a form
+    with the editor, so we need to add the following block to that template:
+    ```
+    {% block non_admin_draftail_head %}
+      {% include "non_admin_draftail/draftail_media.html" %}
+    {% endblock non_admin_draftail_head %}
+    ```
+    And that's it, Draftail editor should now have all JS/CSS to boot up on the page.
 
 # Usage
 Given:
@@ -39,44 +55,15 @@ Given:
     ```python
     from django.db import models
     from wagtail.core.fields import RichTextField
-    
+
     class JobPost(models.Model):
       title = models.CharField(max_length=255)
       body = RichTextField()
     ```
-2. And a form that's used for editing that model by non-admin users:
-   ```python
-   from django.forms import ModelForm
-   
-   class JobPostForm(ModelForm):
-     class Meta:
-       model = JobPost
-       fields = [
-         "title",
-         "body"
-       ]       
-   ```
 
-You can now add `Draftail` editor to non-admin form via assigning a `NonAdminDraftailRichTextArea`
-widget to `body` field:
+2. Ensure that `job_post_form.html` (or whatever template is responsible for rendering Job post edit form) includes `draftail_media.html` in the `<head>` of the page (See step 4 of the Installation instructions above).
 
-```python
-from django.forms import ModelForm
-from non_admin_draftail.widgets import NonAdminDraftailRichTextArea
-
-class JobPostForm(ModelForm):
- class Meta:
-   model = JobPost
-   fields = [
-     "title",
-     "body"
-   ]
-   widgets = {
-     "body": NonAdminDraftailRichTextArea()
-   }
-```
-
-Now, when you visit a page with a `JobPostForm` form, you should see
+3. Now, when you visit a page with a `JobPostForm` form, you should see
 the body field with `Draftail` editor enabled.
 
 # Contributors

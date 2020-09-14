@@ -4,7 +4,7 @@ possibly after several navigation steps
 */
 
 
-function SimpleModal(el) {
+function NonAdminDraftailModal(el) {
     var modal = $("[role=dialog]", el);
 
     function listen() {
@@ -57,7 +57,7 @@ function ModalWorkflow(opts) {
 
     // add container to body and hide it, so content can be added to it before display
     $('body').append(container);
-    var modal = SimpleModal(container);
+    var modal = NonAdminDraftailModal(container);
 
     self.body = container.find('.Non-Admin-Draftail__modal-body');
 

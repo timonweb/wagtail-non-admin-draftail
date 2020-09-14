@@ -13,10 +13,12 @@ urlpatterns = [
 ]
 
 if apps.is_installed("wagtail.images"):
-    from .views.image import image_select_format, image_upload
+    from .views.image import image_chooser_and_upload, image_select_format
 
     urlpatterns += [
-        path("image-upload/", image_upload, name="image-upload"),
+        path(
+            "image-upload/", image_chooser_and_upload, name="image-chooser-and-upload"
+        ),
         path(
             "image-upload/<int:image_id>/select_format/",
             image_select_format,
@@ -29,9 +31,7 @@ if apps.is_installed("wagtail.embeds"):
 
     urlpatterns += [
         path("embed-chooser/", embed_chooser, name="embed-chooser"),
-        path(
-            "embed-chooser-upload/", embed_chooser_upload, name="embed-chooser-upload"
-        ),
+        path("embed-upload/", embed_chooser_upload, name="embed-upload"),
     ]
 
 if apps.is_installed("wagtail.documents"):

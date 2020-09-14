@@ -1,2 +1,3 @@
-{% include 'django/forms/widgets/hidden.html' %}
-<script>window.draftail.initEditor('#{{ widget.attrs.id|escapejs }}', {{ widget.options_json|safe }}, document.currentScript)</script>
+{% include "wagtailadmin/widgets/draftail_rich_text_area.html" %}
+{# This widget is the same as the original draftail_rich_text_area.html widget. Use this file to override #}
+{# the widget if needed #}

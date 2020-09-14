@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    {% include "non_admin_draftail/_draftail_css.html" %}
-    {% include "non_admin_draftail/_draftail_js.html" %}
+    {% block non_admin_draftail_head %}{% endblock non_admin_draftail_head %}
 </head>
 <body>
 {% block content %}

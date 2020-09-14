@@ -16,7 +16,7 @@ from non_admin_draftail.forms import get_image_form
 
 
 @login_required
-def image_upload(request):
+def image_chooser_and_upload(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
 

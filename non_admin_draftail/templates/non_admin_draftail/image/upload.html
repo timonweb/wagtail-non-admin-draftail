@@ -6,7 +6,7 @@
 {% block form %}
     {% if uploadform %}
         <form class="image-upload" action="
-                {% url 'non_admin_draftail:image-upload' %}{% if will_select_format %}?select_format=true{% endif %}"
+                {% url 'non_admin_draftail:image-chooser-and-upload' %}{% if will_select_format %}?select_format=true{% endif %}"
               method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ uploadform.as_p }}

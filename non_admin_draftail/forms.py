@@ -4,6 +4,8 @@ from wagtail.admin.forms.collections import BaseCollectionMemberForm
 from wagtail.core.models import Collection
 from wagtail.images.forms import formfield_for_dbfield
 
+from .conf import NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
+
 
 class PublicCollectionMemberForm(BaseCollectionMemberForm):
     """
@@ -16,16 +18,20 @@ class PublicCollectionMemberForm(BaseCollectionMemberForm):
 
         # Get or initiate the Public uploads collection.
         try:
-            public_collection = Collection.objects.get(name="Public uploads")
+            public_collection = Collection.objects.get(
+                name=NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
+            )
         except Collection.DoesNotExist:
             root_coll = Collection.get_first_root_node()
-            root_coll.add_child(name="Public uploads")
-            public_collection = Collection.objects.get(name="Public uploads")
+            root_coll.add_child(name=NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME)
+            public_collection = Collection.objects.get(
+                name=NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
+            )
 
         self.collections = [public_collection]
 
     def save(self, commit=True):
-        # Set "Public uploads" collection on the uploaded file instance
+        # Set NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME collection on the uploaded file instance
         if self.instance.collection is None:
             self.instance.collection = self.collections[0]
         return super().save(commit=commit)

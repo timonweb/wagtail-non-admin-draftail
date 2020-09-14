@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags non_admin_draftail_tags %}
 
 {# Translation strings object that Draftail requires #}
 <script>
@@ -11,7 +11,6 @@
 
 {# Core scripts used in Wagtail admin #}
 <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.5.1.min.js' %}"></script>
-{#<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>#}
 <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
@@ -23,11 +22,21 @@
 {% hook_output 'insert_editor_js' %}
 
 {# Override url callbacks for non-admin Draftail #}
+{% app_is_installed "wagtail.images" as wagtail_images_is_installed %}
+{% app_is_installed "wagtail.documents" as wagtail_documents_is_installed %}
+{% app_is_installed "wagtail.embeds" as wagtail_embeds_is_installed %}
+
 <script>
     window.chooserUrls = window.chooserUrls || {};
-    window.chooserUrls.imageChooser = "{% url 'non_admin_draftail:image-upload' %}";
-    window.chooserUrls.documentChooser = "{% url 'non_admin_draftail:document-chooser' %}";
-    window.chooserUrls.embedsChooser = "{% url 'non_admin_draftail:embed-chooser' %}";
+    {% if wagtail_images_is_installed %}
+        window.chooserUrls.imageChooser = "{% url 'non_admin_draftail:image-chooser-and-upload' %}";
+    {% endif %}
+    {% if wagtail_documents_is_installed %}
+        window.chooserUrls.documentChooser = "{% url 'non_admin_draftail:document-chooser' %}";
+    {% endif %}
+    {% if wagtail_embeds_is_installed %}
+        window.chooserUrls.embedsChooser = "{% url 'non_admin_draftail:embed-chooser' %}";
+    {% endif %}
     window.chooserUrls.pageChooser = "{% url 'non_admin_draftail:external-link' %}";
     window.chooserUrls.externalLinkChooser = "{% url 'non_admin_draftail:external-link' %}";
     window.chooserUrls.emailLinkChooser = "{% url 'non_admin_draftail:email-link' %}";
