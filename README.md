@@ -44,6 +44,7 @@ There are many ways to do this. I like doing this the following way:
     ```
     {% block non_admin_draftail_head %}
       {% include "non_admin_draftail/draftail_media.html" %}
+      {{ form.media }} # add this line if your template doesn't use "{{ form }}" but fields by themselves
     {% endblock non_admin_draftail_head %}
     ```
     And that's it, Draftail editor should now have all JS/CSS to boot up on the page.
