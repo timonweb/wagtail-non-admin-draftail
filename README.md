@@ -49,6 +49,14 @@ There are many ways to do this. I like doing this the following way:
     ```
     And that's it, Draftail editor should now have all JS/CSS to boot up on the page.
 
+# Configuration
+
+By default, all images and documents uploaded via non-admin draftail are saved in Wagtail's Images/Documents library in the "Public uploads" collection. You can customize the name of the collection by defining a `NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME` variable in your main Django `settings.py` file:
+
+```
+NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME = "Visitor uploads"
+```
+
 # Usage
 Given:
 
