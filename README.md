@@ -75,5 +75,51 @@ Given:
 3. Now, when you visit a page with a `JobPostForm` form, you should see
 the body field with `Draftail` editor enabled.
 
-# Contributors
+# Contributing
+
+## How to run the example project locally
+To contribute, you'd probably want to run the local project. Here's how to do it:
+
+1. This project uses [Poetry](https://python-poetry.org/) for packaging and dependency management (if you have Poetry installed, skip this step):
+    ```
+    pip install poetry
+    ```
+
+2. Clone the repo:
+    ```
+    git clone https://github.com/timonweb/non-admin-draftail.git
+    ```
+
+3. Change into the cloned directory:
+    ```
+    cd non-admin-draftail
+    ```
+
+4. Install dependencies with Poetry:
+    ```
+    poetry install
+    ```
+
+5. Run the project with Poetry:
+    ```
+    poetry run python manage.py runserver
+    ```
+
+6. Open your browser and go to the test form page: [http://127.0.0.1:8000/example/form/](http://127.0.0.1:8000/example/form/).
+
+## How to run the test suite
+Given you have completed steps 1 - 4 above, you can run the `pytest` test suite with the following command:
+```
+poetry run pytest
+```
+
+If tests fail and the installation is fresh, make sure that Playwright (the end to end test library we use) is installed.
+Run the following command to install it:
+
+```
+poetry run python -m playwright install
+```
+
+
+# Created by
 [Tim Kamanin - A Full Stack Python / JavaScript Developer](https://timonweb.com)
