@@ -1,9 +1,63 @@
 {% load wagtailadmin_tags non_admin_draftail_tags %}
 
+<div data-sprite></div>
+<script>
+    function loadIconSprite() {
+        var spriteURL = '{% url "wagtailadmin_sprite" %}';
+        var revisionKey = 'wagtail:spriteRevision';
+        var dataKey = 'wagtail:spriteData';
+        var isLocalStorage = 'localStorage' in window && typeof window.localStorage !== 'undefined';
+
+        var insertIt = function (data) {
+            var spriteContainer = document.body.querySelector('[data-sprite]');
+            spriteContainer.innerHTML = data;
+        }
+
+        var insert = function (data) {
+            if (document.body) {
+                insertIt(data)
+            } else {
+                document.addEventListener('DOMContentLoaded', insertIt.bind(null, data));
+            }
+        }
+
+        if (isLocalStorage && localStorage.getItem(revisionKey) === spriteURL) {
+            var data = localStorage.getItem(dataKey);
+            if (data) {
+                insert(data);
+                return true;
+            }
+        }
+
+        try {
+            var request = new XMLHttpRequest();
+            request.open('GET', spriteURL, true);
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+                    data = request.responseText;
+                    insert(data);
+                    if (isLocalStorage) {
+                        localStorage.setItem(dataKey, data);
+                        localStorage.setItem(revisionKey, spriteURL);
+                    }
+                }
+            }
+            request.send();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    loadIconSprite();
+</script>
+
 {# Translation strings object that Draftail requires #}
 <script>
     (function (document, window) {
         window.wagtailConfig = window.wagtailConfig || {};
+        {% locales as locales %}
+        wagtailConfig.I18N_ENABLED = {% if i18n_enabled %}true{% else %}false{% endif %};
+        wagtailConfig.LOCALES = {{ locales|safe }};
         wagtailConfig.STRINGS = {% js_translation_strings %};
         window.chooserUrls = {};
     })(document, window);

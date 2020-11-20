@@ -16,6 +16,8 @@ class PublicCollectionMemberForm(BaseCollectionMemberForm):
         kwargs.pop("user")
         super(forms.ModelForm, self).__init__(*args, **kwargs)
 
+        # self.fields['collection'].required = False
+
         # Get or initiate the Public uploads collection.
         try:
             public_collection = Collection.objects.get(
@@ -28,7 +30,7 @@ class PublicCollectionMemberForm(BaseCollectionMemberForm):
                 name=NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
             )
 
-        self.collections = [public_collection]
+        self.collections = (public_collection,)
 
     def save(self, commit=True):
         # Set NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME collection on the uploaded file instance
@@ -42,7 +44,7 @@ class PublicCollectionBaseImageForm(PublicCollectionMemberForm):
 
 
 def get_image_form(model):
-    fields = ("title", "file", "collection")
+    fields = ("title", "file")
 
     return modelform_factory(
         model,
@@ -51,8 +53,6 @@ def get_image_form(model):
         formfield_callback=formfield_for_dbfield,
         widgets={
             "file": forms.FileInput(),
-            # Collection input should not be visible to end user.
-            "collection": forms.HiddenInput(),
         },
     )
 
@@ -62,11 +62,7 @@ class PublicCollectionBaseDocumentForm(PublicCollectionMemberForm):
 
 
 def get_document_form(model):
-    fields = (
-        "title",
-        "file",
-        "collection",
-    )
+    fields = ("title", "file")
 
     return modelform_factory(
         model,
@@ -74,7 +70,5 @@ def get_document_form(model):
         fields=fields,
         widgets={
             "file": forms.FileInput(),
-            # Collection input should not be visible to end user.
-            "collection": forms.HiddenInput(),
         },
     )
