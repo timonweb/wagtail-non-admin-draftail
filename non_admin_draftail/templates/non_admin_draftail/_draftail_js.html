@@ -2,6 +2,16 @@
 
 <div data-sprite></div>
 <script>
+    /**
+     * Stubs window.comments object that's not needed
+     * outside of the admin.
+     */
+    if (!window.comments) {
+        window.comments = {
+            getContentPath: (field) => {}
+        };
+    }
+
     function loadIconSprite() {
         var spriteURL = '{% url "wagtailadmin_sprite" %}';
         var revisionKey = 'wagtail:spriteRevision';
