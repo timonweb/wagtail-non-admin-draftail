@@ -1,18 +1,49 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.utils.translation import gettext as _
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.models import popular_tags_for_model
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm
-from wagtail.images.views.chooser import (
-    get_chooser_context,
-    get_chooser_js_data,
-    get_image_result_data,
-)
+from wagtail.images.permissions import permission_policy
+from wagtail.images.views.chooser import get_image_result_data
 from wagtail.search import index as search_index
 
 from non_admin_draftail.forms import get_image_form
+
+
+def get_chooser_js_data():
+    """construct context variables needed by the chooser JS"""
+    return {
+        "step": "chooser",
+        "error_label": _("Server Error"),
+        "error_message": _(
+            "Report this error to your webmaster with the following information:"
+        ),
+        "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
+    }
+
+
+def get_chooser_context(request):
+    """Helper function to return common template context variables for the main chooser view"""
+
+    collections = permission_policy.collections_user_has_permission_for(
+        request.user, "choose"
+    )
+    if len(collections) < 2:
+        collections = None
+
+    return {
+        "searchform": SearchForm(),
+        "is_searching": False,
+        "query_string": None,
+        "will_select_format": request.GET.get("select_format"),
+        "popular_tags": popular_tags_for_model(get_image_model()),
+        "collections": collections,
+    }
 
 
 @login_required
