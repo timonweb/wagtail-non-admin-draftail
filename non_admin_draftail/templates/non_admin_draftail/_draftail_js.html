@@ -66,6 +66,7 @@
     (function (document, window) {
         window.wagtailConfig = window.wagtailConfig || {};
         {% locales as locales %}
+        {% i18n_enabled as i18n_enabled %}
         wagtailConfig.I18N_ENABLED = {% if i18n_enabled %}true{% else %}false{% endif %};
         wagtailConfig.LOCALES = {{ locales|safe }};
         wagtailConfig.STRINGS = {% js_translation_strings %};
