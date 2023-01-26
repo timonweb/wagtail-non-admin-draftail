@@ -18,8 +18,8 @@ django-managepy-anywhere = "^2.0"
 pytest-faker = "^2.0.0"
 pytest-env = "^0.6.2"
 pre-commit = "^2.7.1"
-flake8 = "^4.0.1"
-black = "^21.10b0"
+flake8 = "^5.0.4"
+black = "^22.8.0"
 isort = "^5.4.2"
 
 [build-system]

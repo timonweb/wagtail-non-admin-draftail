@@ -12,7 +12,7 @@ from non_admin_draftail.forms import get_document_form
 def get_chooser_context():
     """construct context variables needed by the chooser JS"""
     return {
-        "step": "chooser",
+        "step": "choose",
         "error_label": _("Server Error"),
         "error_message": _(
             "Report this error to your webmaster with the following information:"
@@ -62,7 +62,7 @@ def document_chosen(request, document_id):
         None,
         None,
         json_data={
-            "step": "document_chosen",
+            "step": "chosen",
             "result": get_document_result_data(document),
         },
     )
@@ -102,7 +102,7 @@ def document_chooser_upload(request):
                 None,
                 None,
                 json_data={
-                    "step": "document_chosen",
+                    "step": "chosen",
                     "result": get_document_result_data(document),
                 },
             )

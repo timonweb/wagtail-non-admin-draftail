@@ -5,12 +5,13 @@
 {% block title %}{% trans "Upload an image" %}{% endblock title %}
 {% block form %}
     {% if uploadform %}
-        <form class="image-upload" action="
-                {% url 'non_admin_draftail:image-chooser-and-upload' %}{% if will_select_format %}?select_format=true{% endif %}"
+        <div id="tab-upload">
+        <form data-chooser-modal-creation-form class="image-upload" action="{% url 'non_admin_draftail:image-chooser-and-upload' %}{% if will_select_format %}?select_format=true{% endif %}"
               method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ uploadform.as_p }}
             <button type="submit">{% trans 'Upload' %}</button>
         </form>
+        </div>
     {% endif %}
 {% endblock form %}

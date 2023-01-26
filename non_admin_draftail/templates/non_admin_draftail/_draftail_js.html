@@ -8,7 +8,8 @@
      */
     if (!window.comments) {
         window.comments = {
-            getContentPath: (field) => {}
+            getContentPath: (field) => {
+            }
         };
     }
 
@@ -61,6 +62,11 @@
     loadIconSprite();
 </script>
 
+<noscript class="capabilitymessage">
+    JavaScript is required to use Wagtail, but it is currently disabled.<br/> Here are the
+    <a href="https://www.enable-javascript.com/" target="_blank" rel="noreferrer">instructions how to enable JavaScript in your web browser</a>.
+</noscript>
+
 {# Translation strings object that Draftail requires #}
 <script>
     (function (document, window) {
@@ -76,15 +82,21 @@
 
 {# Core scripts used in Wagtail admin #}
 <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.6.0.min.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
+<script src="{% url 'wagtailadmin_javascript_catalog' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/telepath/telepath.js' %}"></script>
 
-{# We replace wagtailadmin/js/modal-workflow with the following file to add distinct css class to modal #}
-<script src="{% versioned_static 'non_admin_draftail/modal-workflow.js' %}"></script>
+{% include "wagtailadmin/pages/_editor_js.html" %}
 
 {# Add JavaScript that comes from inser_editor_js Wagtail hook #}
 {% hook_output 'insert_editor_js' %}
+
+{# We replace wagtailadmin/js/modal-workflow with the following file to add distinct css class to modal #}
+<script src="{% versioned_static 'non_admin_draftail//modal-workflow.js' %}"></script>
+
 
 {# Override url callbacks for non-admin Draftail #}
 {% app_is_installed "wagtail.images" as wagtail_images_is_installed %}

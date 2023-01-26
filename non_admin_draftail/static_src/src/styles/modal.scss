@@ -2,7 +2,7 @@ $easing-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
 $color-bg-modal__overlay: rgba(0, 0, 0, 0.75);
 $color-bg-modal: #fff;
 
-$modal__overlay-z-index: 30;
+$modal__overlay-z-index: 100;
 $modal-z-index: $modal__overlay-z-index + 1;
 
 $spacing-modal: 0.5rem;
@@ -12,6 +12,9 @@ $spacing-modal: 0.5rem;
 
   .Non-Admin-Draftail__modal {
     display: none;
+    button {
+      cursor: pointer;
+    }
   }
 }
 
@@ -41,7 +44,7 @@ $spacing-modal: 0.5rem;
     z-index: $modal-z-index;
     background-color: $color-bg-modal;
     animation: modal-in 0.2s $easing-circ 0s backwards;
-    color: #013C3C;
+    color: #03686A;
   }
 }
 

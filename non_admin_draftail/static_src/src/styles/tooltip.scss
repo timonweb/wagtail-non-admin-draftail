@@ -1,0 +1,107 @@
+$tooltip-spacing: 0.625rem;
+$tooltip-arrow-height: 15px;
+$tooltip-arrow-spacing: 25px;
+$tooltip-radius: 5px;
+
+$tooltip-chrome: #FFF;
+$tooltip-chrome-text: #000;
+
+$tooltip-z-index: 1;
+
+$tooltip-color-no: #F04444;
+
+@mixin arrow--top {
+  margin-top: $tooltip-arrow-spacing;
+  transform: translateX(calc(var(--w-direction-factor) * -50%));
+
+  &::before {
+    bottom: 100%;
+    inset-inline-start: 50%;
+    transform: translateX(calc(var(--w-direction-factor) * -50%));
+    border-bottom-color: $tooltip-chrome;
+  }
+}
+
+@mixin arrow--left {
+  margin-inline-start: $tooltip-arrow-spacing;
+  transform: translateY(-50%);
+
+  &::before {
+    display: none;
+  }
+}
+
+@mixin arrow--top-left {
+  margin-top: $tooltip-arrow-spacing;
+
+  &::before {
+    bottom: 100%;
+    inset-inline-start: $tooltip-arrow-spacing;
+    border-bottom-color: $tooltip-chrome;
+  }
+}
+
+.Draftail-Editor__wrapper {
+
+  .Tooltip {
+    position: absolute;
+    padding: $tooltip-spacing;
+    background-color: $tooltip-chrome;
+    color: $tooltip-chrome-text;
+    z-index: $tooltip-z-index;
+    border-radius: $tooltip-radius;
+    box-shadow: 0 0 5px #333;
+
+    &::before {
+      content: '';
+      position: absolute;
+      border: $tooltip-arrow-height solid transparent;
+      display: none !important;
+    }
+
+    &--top {
+      @include arrow--top;
+    }
+
+    &--left {
+      @include arrow--left;
+    }
+
+    &--top-left {
+      @include arrow--top-left;
+    }
+
+    &__link {
+      font-size: 0.875rem;
+      margin-inline-end: 1 * 4;
+      display: inline-block;
+
+      &,
+      &:hover {
+        color: #111;
+      }
+    }
+
+    &__button {
+      background: #03686A;
+      border: 1px solid #03686A;
+      border-radius: 8px;
+      color: #FFF;
+      padding: 5px 10px;
+      cursor: pointer;
+
+      &.no.button-secondary {
+        background: #FFF;
+        color: $tooltip-color-no;
+        border-color: $tooltip-color-no;
+        margin-left: 10px;
+        &:hover {
+          color: $tooltip-color-no;
+        }
+      }
+    }
+
+
+  }
+
+}
