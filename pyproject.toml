@@ -17,10 +17,10 @@ pytest-playwright = "^0.2.2"
 django-managepy-anywhere = "^2.0"
 pytest-faker = "^2.0.0"
 pytest-env = "^0.6.2"
-pre-commit = "^2.7.1"
+pre-commit = "^2.21.0"
 flake8 = "^5.0.4"
 black = "^22.8.0"
-isort = "^5.4.2"
+isort = "^5.11.4"
 
 [build-system]
 requires = ["poetry>=0.12"]
