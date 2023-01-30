@@ -48,14 +48,15 @@ function ModalWorkflow(opts) {
     var responseCallbacks = opts.responses || {};
     var errorCallback = opts.onError || function () {
     };
+
     /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
     $('body > .Non-Admin-Draftail__modal-wrapper').remove();
 
-    // set default contents of container
+// set default contents of container
     var iconClose = '<svg class="icon icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross"></use></svg>';
-    var container = $('<div class="Non-Admin-Draftail__modal-wrapper"><div class="Non-Admin-Draftail__modal" role="dialog" aria-modal="true"><button type="button" data-action="close" class="Non-Admin-Draftail__modal-close" >' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button><div class="Non-Admin-Draftail__modal-body"></div></div></div>');
+    var container = $('<div class="Non-Admin-Draftail__modal-wrapper"><div class="Non-Admin-Draftail__modal" role="dialog" aria-modal="true"><button type="button" data-action="close" class="Non-Admin-Draftail__modal-close" >' + iconClose + "Close" + '</button><div class="Non-Admin-Draftail__modal-body"></div></div></div>');
 
-    // add container to body and hide it, so content can be added to it before display
+// add container to body and hide it, so content can be added to it before display
     $('body').append(container);
     var modal = NonAdminDraftailModal(container);
 

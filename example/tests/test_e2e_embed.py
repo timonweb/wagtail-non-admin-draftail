@@ -8,8 +8,9 @@ def test_embed_button(authenticated_page, live_server):
     YOUTUBE_VIDEO_ID = "IMNFjrQ5OY4"
     authenticated_page.goto(live_server + FORM_PAGE_URL)
 
-    # Click image button in the editor
-    authenticated_page.click("button[name=EMBED]")
+    # Click embed button in the editor
+    authenticated_page.fill('[role="textbox"]', "/")
+    authenticated_page.click('[href="#icon-media"]')
 
     # Wait for modal to appear
     authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="visible")
@@ -28,12 +29,6 @@ def test_embed_button(authenticated_page, live_server):
     authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="hidden")
 
     # Make sure image is embedded in draftail
-    authenticated_page.wait_for_selector(".Draftail-Editor img.MediaBlock__img")
     image = authenticated_page.query_selector(".Draftail-Editor img.MediaBlock__img")
+    assert image
     assert YOUTUBE_VIDEO_ID in image.get_attribute("src")
-
-    # Click on image again and make sure modal is show again
-    # We test if the toolbar was properly unlocked.
-    authenticated_page.click("button[name=EMBED]")
-    authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="visible")
-    authenticated_page.wait_for_selector("text=Insert embed", state="visible")

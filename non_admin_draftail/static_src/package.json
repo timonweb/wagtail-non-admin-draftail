@@ -2,16 +2,13 @@
   "name": "static_src",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "build": "parcel build src/index.js --no-content-hash --no-source-maps -d ./../static/non_admin_draftail -o draftail && rm ./../static/non_admin_draftail/draftail.js",
-    "dev": "parcel watch src/index.js -d ./../static/non_admin_draftail -o draftail"
+    "build": "sass --no-source-map src/index.scss ../static/non_admin_draftail/draftail.css"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "parcel-bundler": "^1.12.4",
-    "sass": "^1.26.10"
+    "sass": "^1.57.1"
   }
 }

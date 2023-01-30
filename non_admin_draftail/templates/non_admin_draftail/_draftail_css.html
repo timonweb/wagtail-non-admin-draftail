@@ -1,4 +1,3 @@
 {% load wagtailadmin_tags %}
-{% include "wagtailadmin/pages/_editor_css.html" %}
+{% hook_output 'insert_editor_css' %}
 <link rel="stylesheet" href="{% versioned_static 'non_admin_draftail/draftail.css' %}">
-{#{% icons %}#}

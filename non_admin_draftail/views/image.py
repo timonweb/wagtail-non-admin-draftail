@@ -9,8 +9,6 @@ from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm
 from wagtail.images.permissions import permission_policy
-from wagtail.images.views.chooser import get_image_result_data
-from wagtail.search import index as search_index
 
 from non_admin_draftail.forms import get_image_form
 
@@ -18,7 +16,7 @@ from non_admin_draftail.forms import get_image_form
 def get_chooser_js_data():
     """construct context variables needed by the chooser JS"""
     return {
-        "step": "chooser",
+        "step": "choose",
         "error_label": _("Server Error"),
         "error_message": _(
             "Report this error to your webmaster with the following information:"
@@ -48,6 +46,8 @@ def get_chooser_context(request):
 
 @login_required
 def image_chooser_and_upload(request):
+    from wagtail.search import index as search_index
+
     Image = get_image_model()
     ImageForm = get_image_form(Image)
 
@@ -95,8 +95,8 @@ def image_chooser_and_upload(request):
                     None,
                     None,
                     json_data={
-                        "step": "image_chosen",
-                        "result": get_image_result_data(image),
+                        "step": "chosen",
+                        # "result": get_image_result_data(image),
                     },
                 )
     else:
@@ -149,7 +149,7 @@ def image_select_format(request, image_id):
                 None,
                 None,
                 None,
-                json_data={"step": "image_chosen", "result": image_data},
+                json_data={"step": "chosen", "result": image_data},
             )
     else:
         initial = {"alt_text": image.default_alt_text}
