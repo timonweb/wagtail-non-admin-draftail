@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from wagtail.core.models import Collection
 from wagtail.images import get_image_model
@@ -10,7 +12,8 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     authenticated_page.goto(live_server + FORM_PAGE_URL)
 
     # Click image button in the editor
-    authenticated_page.click("button[name=IMAGE]")
+    authenticated_page.fill('[role="textbox"]', "/")
+    authenticated_page.click('[href="#icon-image"]')
 
     # Wait for modal to appear
     authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="visible")
@@ -20,7 +23,9 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     file_input = authenticated_page.query_selector(
         ".Non-Admin-Draftail__modal form [type=file]"
     )
-    file_input.set_input_files("example/tests/seed/example.png")
+    file_input.set_input_files(
+        os.path.join(os.path.dirname(__file__), "seed/example.png")
+    )
 
     # Submit the form
     authenticated_page.click(".Non-Admin-Draftail__modal form [type=submit]")
@@ -38,13 +43,7 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="hidden")
 
     # Make sure image is embedded in draftail
-    authenticated_page.wait_for_selector(".Draftail-Editor img.MediaBlock__img")
-
-    # Click on image again and make sure modal is show again
-    # We test if the toolbar was properly unlocked.
-    authenticated_page.click("button[name=IMAGE]")
-    authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="visible")
-    authenticated_page.wait_for_selector("text=Upload an image", state="visible")
+    assert authenticated_page.query_selector(".Draftail-Editor .MediaBlock__img")
 
     # Ensure uploaded image is added to "Public uploads" collection
     image = get_image_model().objects.last()

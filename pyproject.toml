@@ -9,7 +9,7 @@ repository = "https://github.com/timonweb/non-admin-draftail"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-wagtail = ">=2.15"
+wagtail = ">=4.1"
 
 [tool.poetry.dev-dependencies]
 pytest-django = "^4.4.0"

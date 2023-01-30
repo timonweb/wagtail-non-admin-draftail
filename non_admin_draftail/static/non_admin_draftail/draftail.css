@@ -13,6 +13,11 @@
   color: #fff;
 }
 
+.Draftail-Tooltip {
+  background: #fff !important;
+  border-radius: 8px !important;
+}
+
 .Non-Admin-Draftail__modal-wrapper {
   display: none;
 }

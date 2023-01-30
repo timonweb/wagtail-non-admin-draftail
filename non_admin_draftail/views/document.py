@@ -43,7 +43,7 @@ def document_chooser(request):
 
     return render_modal_workflow(
         request,
-        "non_admin_draftail/document/chooser.html",
+        "non_admin_draftail/document/upload.html",
         None,
         {
             "uploadform": uploadform,
@@ -113,7 +113,7 @@ def document_chooser_upload(request):
 
     return render_modal_workflow(
         request,
-        "non_admin_draftail/document/chooser.html",
+        "non_admin_draftail/document/upload.html",
         None,
         {"documents": documents, "uploadform": form},
         json_data=get_chooser_context(),
