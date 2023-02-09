@@ -4,7 +4,7 @@ $tooltip-arrow-spacing: 25px;
 $tooltip-radius: 5px;
 
 $tooltip-chrome: #FFF;
-$tooltip-chrome-text: #000;
+$tooltip-chrome-text: #333;
 
 $tooltip-z-index: 1;
 
@@ -42,6 +42,14 @@ $tooltip-color-no: #F04444;
 }
 
 .Draftail-Editor__wrapper {
+
+  .tippy-content .w-combobox {
+    padding: $tooltip-spacing;
+    background-color: $tooltip-chrome;
+    color: $tooltip-chrome-text;
+    border-radius: $tooltip-radius;
+    box-shadow: 0 0 5px #333;
+  }
 
   .Tooltip {
     position: absolute;
@@ -95,6 +103,7 @@ $tooltip-color-no: #F04444;
         color: $tooltip-color-no;
         border-color: $tooltip-color-no;
         margin-left: 10px;
+
         &:hover {
           color: $tooltip-color-no;
         }
@@ -104,4 +113,61 @@ $tooltip-color-no: #F04444;
 
   }
 
+
+}
+
+.Draftail-Tooltip {
+  .w-combobox {
+    padding: 10px;
+  }
+
+  .w-combobox__field {
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: .5rem;
+      border-width: 1px;
+      &:focus {
+        outline-color: #03686A;
+      }
+      &[disabled] {
+        display: none;
+      }
+    }
+  }
+
+  .w-combobox__status,
+  .w-combobox__menu {
+    margin-top: .75rem;
+  }
+
+  .w-combobox__optgroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+  }
+
+  .w-combobox__option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: .25rem;
+
+    &:focus, &[aria-selected="true"], &:hover {
+      outline: #03686A solid 2px;
+      border-radius: 4px;
+    }
+  }
+
+  .w-combobox__option-text {
+    margin-left: .5rem;
+  }
+
+  .w-combobox__option-icon,
+  .w-combobox__option-icon svg {
+    width: 16px;
+    height: 16px;
+    color: #aaa;
+    fill: #aaa;
+  }
 }

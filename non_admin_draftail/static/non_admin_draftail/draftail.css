@@ -1,21 +1,52 @@
+.Draftail-Editor__wrapper {
+  padding-left: 40px;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
 .Draftail-Editor__wrapper .public-DraftEditor-content.public-DraftEditor-content {
   appearance: none;
   background-color: #FFF;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 0.3125rem;
 }
-
-.Draftail-InlineToolbar {
+.Draftail-Editor__wrapper .w-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.Draftail-Editor__wrapper .Draftail-Editor--focus .public-DraftEditor-content.public-DraftEditor-content {
+  border: 0;
+}
+.Draftail-Editor__wrapper .Draftail-FloatingToolbar,
+.Draftail-Editor__wrapper .Draftail-InlineToolbar {
   background: #03686A !important;
 }
-.Draftail-InlineToolbar .icon {
+.Draftail-Editor__wrapper .Draftail-FloatingToolbar .Draftail-ToolbarButton__label, .Draftail-Editor__wrapper .Draftail-FloatingToolbar .icon, .Draftail-Editor__wrapper .Draftail-FloatingToolbar .Draftail-Icon,
+.Draftail-Editor__wrapper .Draftail-InlineToolbar .Draftail-ToolbarButton__label,
+.Draftail-Editor__wrapper .Draftail-InlineToolbar .icon,
+.Draftail-Editor__wrapper .Draftail-InlineToolbar .Draftail-Icon {
   fill: #fff;
   color: #fff;
 }
-
-.Draftail-Tooltip {
+.Draftail-Editor__wrapper .Draftail-Tooltip {
   background: #fff !important;
   border-radius: 8px !important;
+}
+
+.Draftail-Editor--focus .Draftail-BlockToolbar__trigger, .Draftail-Editor:focus-within .Draftail-BlockToolbar__trigger {
+  visibility: visible;
+  cursor: pointer;
+}
+.Draftail-Editor--focus .Draftail-BlockToolbar__trigger:hover, .Draftail-Editor--focus .Draftail-BlockToolbar__trigger:active, .Draftail-Editor--focus .Draftail-BlockToolbar__trigger:focus, .Draftail-Editor:focus-within .Draftail-BlockToolbar__trigger:hover, .Draftail-Editor:focus-within .Draftail-BlockToolbar__trigger:active, .Draftail-Editor:focus-within .Draftail-BlockToolbar__trigger:focus {
+  border: 1px solid #03686A;
+}
+.Draftail-Editor--focus .Draftail-BlockToolbar__trigger:hover svg, .Draftail-Editor--focus .Draftail-BlockToolbar__trigger:active svg, .Draftail-Editor--focus .Draftail-BlockToolbar__trigger:focus svg, .Draftail-Editor:focus-within .Draftail-BlockToolbar__trigger:hover svg, .Draftail-Editor:focus-within .Draftail-BlockToolbar__trigger:active svg, .Draftail-Editor:focus-within .Draftail-BlockToolbar__trigger:focus svg {
+  fill: #03686A;
 }
 
 .Non-Admin-Draftail__modal-wrapper {
@@ -141,11 +172,18 @@
   margin: 0 auto;
 }
 
+.Draftail-Editor__wrapper .tippy-content .w-combobox {
+  padding: 0.625rem;
+  background-color: #FFF;
+  color: #333;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #333;
+}
 .Draftail-Editor__wrapper .Tooltip {
   position: absolute;
   padding: 0.625rem;
   background-color: #FFF;
-  color: #000;
+  color: #333;
   z-index: 1;
   border-radius: 5px;
   box-shadow: 0 0 5px #333;
@@ -205,4 +243,49 @@
 }
 .Draftail-Editor__wrapper .Tooltip__button.no.button-secondary:hover {
   color: #F04444;
+}
+
+.Draftail-Tooltip .w-combobox {
+  padding: 10px;
+}
+.Draftail-Tooltip .w-combobox__field input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem;
+  border-width: 1px;
+}
+.Draftail-Tooltip .w-combobox__field input:focus {
+  outline-color: #03686A;
+}
+.Draftail-Tooltip .w-combobox__field input[disabled] {
+  display: none;
+}
+.Draftail-Tooltip .w-combobox__status,
+.Draftail-Tooltip .w-combobox__menu {
+  margin-top: 0.75rem;
+}
+.Draftail-Tooltip .w-combobox__optgroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+.Draftail-Tooltip .w-combobox__option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.Draftail-Tooltip .w-combobox__option:focus, .Draftail-Tooltip .w-combobox__option[aria-selected=true], .Draftail-Tooltip .w-combobox__option:hover {
+  outline: #03686A solid 2px;
+  border-radius: 4px;
+}
+.Draftail-Tooltip .w-combobox__option-text {
+  margin-left: 0.5rem;
+}
+.Draftail-Tooltip .w-combobox__option-icon,
+.Draftail-Tooltip .w-combobox__option-icon svg {
+  width: 16px;
+  height: 16px;
+  color: #aaa;
+  fill: #aaa;
 }

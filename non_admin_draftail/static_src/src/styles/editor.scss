@@ -1,19 +1,57 @@
-.Draftail-Editor__wrapper .public-DraftEditor-content.public-DraftEditor-content {
-  appearance: none;
-  background-color: #FFF;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
+.Draftail-Editor__wrapper {
+  padding-left: 40px;
+  padding-right: 40px;
+  box-sizing: border-box;
 
-.Draftail-InlineToolbar {
-  background: #03686A !important;
-  .icon {
-    fill: #fff;
-    color: #fff;
+  .public-DraftEditor-content.public-DraftEditor-content {
+    appearance: none;
+    background-color: #FFF;
+    border: 1px solid #ccc;
+    border-radius: .3125rem;
+  }
+
+  .w-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .Draftail-Editor--focus .public-DraftEditor-content.public-DraftEditor-content {
+    border: 0;
+  }
+
+  .Draftail-FloatingToolbar,
+  .Draftail-InlineToolbar {
+    background: #03686A !important;
+
+    .Draftail-ToolbarButton__label, .icon, .Draftail-Icon {
+      fill: #fff;
+      color: #fff;
+    }
+  }
+
+  .Draftail-Tooltip {
+    background: #fff !important;
+    border-radius: 8px !important;
   }
 }
 
-.Draftail-Tooltip {
-  background: #fff !important;
-  border-radius: 8px !important;
+.Draftail-Editor--focus, .Draftail-Editor:focus-within {
+  .Draftail-BlockToolbar__trigger {
+    visibility: visible;
+    cursor: pointer;
+
+    &:hover, &:active, &:focus {
+      border: 1px solid #03686A;
+
+      svg {
+        fill: #03686A;
+      }
+    }
+  }
 }
