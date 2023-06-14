@@ -1,8 +1,12 @@
 from django import forms
 from django.forms import modelform_factory
 from wagtail.admin.forms.collections import BaseCollectionMemberForm
-from wagtail.core.models import Collection
 from wagtail.images.forms import formfield_for_dbfield
+
+try:
+    from wagtail.models import Collection
+except ImportError:
+    from wagtail.core.models import Collection
 
 from .conf import NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
 
