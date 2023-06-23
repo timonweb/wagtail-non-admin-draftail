@@ -1,12 +1,12 @@
 # Non-admin Draftail
 
-Wagtail has an excellent WYSIWYG editor called Draftail. Unfortunately, the editor can be used only on admin pages. But what if you want to use it on non-admin pages, like Django form view pages?
+Wagtail has an excellent WYSIWYG editor called Draftail. Unfortunately, the editor can only be used on admin pages. But what if you want to use it on non-admin pages, like Django form view pages?
 
-This is where Non-admin Draftail comes to the rescue! The package provides all the necessary magic to free Draftail from Wagtail admin and make it usable with a regular Django form that doesn't belong to the CMS admin interface. The only requirement is, of course, to have Wagtail installed.
+This is where Non-admin Draftail comes to the rescue! The package provides all the necessary magic to set Draftail free from Wagtail admin and make it usable with a regular Django form that doesn't belong to the CMS admin interface. The only requirement is, of course, to have Wagtail installed.
 
 # Installation
 
-1. Install a package from PYPI: `pip install wagtail_non_admin_draftail`
+1. Install the package from PyPI: `pip install wagtail_non_admin_draftail`
 2. Add `wagtail_non_admin_draftail` to `INSTALLED_APPS`:
     ```python
     INSTALLED_APPS = [
@@ -14,15 +14,14 @@ This is where Non-admin Draftail comes to the rescue! The package provides all t
         'wagtail_non_admin_draftail',
     ]
     ```
-3. Add
+3. Add the following line to the main `urls.py` of the project:
     ```python
     path("non-admin-draftail/", include("wagtail_non_admin_draftail.urls", namespace="wagtail_non_admin_draftail")),
     ```
-    to the main `urls.py` of the project
 4. Include `"wagtail_non_admin_draftail/draftail_media.html"` in the `<head>` of every page that will have the editor.
-There are many ways to do this. I like doing this the following way:
+There are many ways to do this. Here's one way to accomplish it:
 
-    a. Add `{% block wagtail_non_admin_draftail_head %}` block to the `<head>` of your `base.html` file:
+    a. Add the `{% block wagtail_non_admin_draftail_head %}` block to the `<head>` of your `base.html` file:
 
     ```html
     {% load wagtail_non_admin_draftail_tags %}
@@ -36,29 +35,28 @@ There are many ways to do this. I like doing this the following way:
     </html>
     ```
 
-    b. Then add `wagtail_non_admin_draftail/draftail_media.html` to `wagtail_non_admin_draftail_head` block on
+    b. Then add `wagtail_non_admin_draftail/draftail_media.html` to the `wagtail_non_admin_draftail_head` block on
     every page that uses the editor.
 
-    For example, we have a page template `post_edit.html` that renders a form
-    with the editor, so we need to add the following block to that template:
+    For example, if you have a page template called `post_edit.html` that renders a form with the editor, you need to add the following block to that template:
     ```
     {% block wagtail_non_admin_draftail_head %}
       {% include "wagtail_non_admin_draftail/draftail_media.html" %}
       {{ form.media }} # add this line if your template doesn't use "{{ form }}" but fields by themselves
     {% endblock wagtail_non_admin_draftail_head %}
     ```
-    And that's it, Draftail editor should now have all JS/CSS to boot up on the page.
+    That's it! The Draftail editor should now have all the JS/CSS required to boot up on the page.
 
 # Configuration
 
-By default, all images and documents uploaded via non-admin draftail are saved in Wagtail's Images/Documents library in the "Public uploads" collection. You can customize the name of the collection by defining a `NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME` variable in your main Django `settings.py` file:
+By default, all images and documents uploaded via Non-admin Draftail are saved in Wagtail's Images/Documents library in the "Public uploads" collection. You can customize the name of the collection by defining a `WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME` variable in your main Django `settings.py` file:
 
 ```
-NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME = "Visitor uploads"
+WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME = "Visitor uploads"
 ```
 
 # Usage
-Given:
+Assuming the following:
 
 1. You have a model that has a Wagtail `RichTextField`:
     ```python
@@ -70,7 +68,7 @@ Given:
       body = RichTextField()
     ```
 
-2. Ensure that `job_post_form.html` (or whatever template is responsible for rendering Job post edit form) includes `draftail_media.html` in the `<head>` of the page (See step 4 of the Installation instructions above).
+2. Ensure that `job_post_form.html` (or whatever template is responsible for rendering the Job post edit form) includes `draftail_media.html` in the `<head>` of the page (See step 4 of the Installation instructions above).
 
 3. Now, when you visit a page with a `JobPostForm` form, you should see
 the body field with `Draftail` editor enabled.
@@ -108,13 +106,12 @@ To contribute, you'd probably want to run the local project. Here's how to do it
 6. Open your browser and go to the test form page: [http://127.0.0.1:8000/example/form/](http://127.0.0.1:8000/example/form/).
 
 ## How to run the test suite
-Given you have completed steps 1 - 4 above, you can run the `pytest` test suite with the following command:
+Assuming you have completed steps 1 - 4 above, you can run the `pytest` test suite with the following command:
 ```
 poetry run pytest
 ```
 
-If tests fail and the installation is fresh, make sure that Playwright (the end to end test library we use) is installed.
-Run the following command to install it:
+If tests fail and the installation is fresh, make sure that Playwright (the end-to-end test library we use) is installed. Run the following command to install it:
 
 ```
 poetry run python -m playwright install
