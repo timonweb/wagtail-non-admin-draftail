@@ -1,10 +1,17 @@
 import pytest
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
-from wagtail.core.models import Collection
+from wagtail.models import Collection
 
 DEFAULT_TEST_PASSWORD = "testuser"
 FORM_PAGE_URL = reverse("example:form")
+
+
+@pytest.fixture()
+def page(page, live_server):
+    page.set_default_timeout(5000)
+    page.base_url = live_server.url
+    return page
 
 
 @pytest.fixture

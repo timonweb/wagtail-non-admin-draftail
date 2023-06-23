@@ -1,0 +1,12 @@
+{% extends "wagtail_non_admin_draftail/modal_base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block title %}{% trans "Add a link" %}{% endblock title %}
+
+{% block form %}
+    {% include 'wagtail_non_admin_draftail/link/_link_types.html' with current='external' %}
+    <form action="{% url 'wagtail_non_admin_draftail:external-link' %}{% querystring %}" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans 'Insert link' %}</button>
+    </form>
+{% endblock %}

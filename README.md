@@ -6,46 +6,46 @@ This is where Non-admin Draftail comes to the rescue! The package provides all t
 
 # Installation
 
-1. Install a package from PYPI: `pip install non_admin_draftail`
-2. Add `non_admin_draftail` to `INSTALLED_APPS`:
+1. Install a package from PYPI: `pip install wagtail_non_admin_draftail`
+2. Add `wagtail_non_admin_draftail` to `INSTALLED_APPS`:
     ```python
     INSTALLED_APPS = [
         ...
-        'non_admin_draftail',
+        'wagtail_non_admin_draftail',
     ]
     ```
 3. Add
     ```python
-    path("non-admin-draftail/", include("non_admin_draftail.urls", namespace="non_admin_draftail")),
+    path("non-admin-draftail/", include("wagtail_non_admin_draftail.urls", namespace="wagtail_non_admin_draftail")),
     ```
     to the main `urls.py` of the project
-4. Include `"non_admin_draftail/draftail_media.html"` in the `<head>` of every page that will have the editor.
+4. Include `"wagtail_non_admin_draftail/draftail_media.html"` in the `<head>` of every page that will have the editor.
 There are many ways to do this. I like doing this the following way:
 
-    a. Add `{% block non_admin_draftail_head %}` block to the `<head>` of your `base.html` file:
+    a. Add `{% block wagtail_non_admin_draftail_head %}` block to the `<head>` of your `base.html` file:
 
     ```html
-    {% load non_admin_draftail_tags %}
+    {% load wagtail_non_admin_draftail_tags %}
     <!DOCTYPE html>
     <html>
     <head>
      ...
-     {% block non_admin_draftail_head %}{% endblock non_admin_draftail_head %}
+     {% block wagtail_non_admin_draftail_head %}{% endblock wagtail_non_admin_draftail_head %}
     </head>
     <body></body>
     </html>
     ```
 
-    b. Then add `non_admin_draftail/draftail_media.html` to `non_admin_draftail_head` block on
+    b. Then add `wagtail_non_admin_draftail/draftail_media.html` to `wagtail_non_admin_draftail_head` block on
     every page that uses the editor.
 
     For example, we have a page template `post_edit.html` that renders a form
     with the editor, so we need to add the following block to that template:
     ```
-    {% block non_admin_draftail_head %}
-      {% include "non_admin_draftail/draftail_media.html" %}
+    {% block wagtail_non_admin_draftail_head %}
+      {% include "wagtail_non_admin_draftail/draftail_media.html" %}
       {{ form.media }} # add this line if your template doesn't use "{{ form }}" but fields by themselves
-    {% endblock non_admin_draftail_head %}
+    {% endblock wagtail_non_admin_draftail_head %}
     ```
     And that's it, Draftail editor should now have all JS/CSS to boot up on the page.
 
@@ -63,7 +63,7 @@ Given:
 1. You have a model that has a Wagtail `RichTextField`:
     ```python
     from django.db import models
-    from wagtail.core.fields import RichTextField
+    from wagtail.fields import RichTextField
 
     class JobPost(models.Model):
       title = models.CharField(max_length=255)
@@ -87,12 +87,12 @@ To contribute, you'd probably want to run the local project. Here's how to do it
 
 2. Clone the repo:
     ```
-    git clone https://github.com/timonweb/non-admin-draftail.git
+    git clone https://github.com/timonweb/wagtail-non-admin-draftail.git
     ```
 
 3. Change into the cloned directory:
     ```
-    cd non-admin-draftail
+    cd wagtail-non-admin-draftail
     ```
 
 4. Install dependencies with Poetry:

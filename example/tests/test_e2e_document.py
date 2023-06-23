@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from wagtail.core.models import Collection
+from wagtail.models import Collection
 from wagtail.documents import get_document_model
 
 from .conftest import FORM_PAGE_URL

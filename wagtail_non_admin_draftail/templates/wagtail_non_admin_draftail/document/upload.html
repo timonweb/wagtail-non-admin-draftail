@@ -1,0 +1,16 @@
+{% extends "wagtail_non_admin_draftail/modal_base.html" %}
+{% load wagtailimages_tags wagtailadmin_tags %}
+{% load i18n %}
+
+{% block title %}{% trans "Upload a document" %}{% endblock title %}
+{% block form %}
+    {% if uploadform %}
+        <div id="tab-upload">
+            <form data-chooser-modal-creation-form class="document-upload" action="{% url 'wagtail_non_admin_draftail:document-upload' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ uploadform.as_p }}
+                <button type="submit">{% trans 'Upload' %}</button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock form %}

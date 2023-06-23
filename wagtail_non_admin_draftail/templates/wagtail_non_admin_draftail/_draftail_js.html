@@ -1,0 +1,123 @@
+{% load wagtailadmin_tags wagtail_non_admin_draftail_tags %}
+
+<div data-sprite></div>
+<script>
+    /**
+     * Stubs window.comments object that's not needed
+     * outside of the admin.
+     */
+    if (!window.comments) {
+        window.comments = {
+            getContentPath: (field) => {
+            }
+        };
+    }
+
+    function loadIconSprite() {
+        var spriteURL = '{% url "wagtailadmin_sprite" %}';
+        var revisionKey = 'wagtail:spriteRevision';
+        var dataKey = 'wagtail:spriteData';
+        var isLocalStorage = 'localStorage' in window && typeof window.localStorage !== 'undefined';
+
+        var insertIt = function (data) {
+            var spriteContainer = document.body.querySelector('[data-sprite]');
+            spriteContainer.innerHTML = data;
+        }
+
+        var insert = function (data) {
+            if (document.body) {
+                insertIt(data)
+            } else {
+                document.addEventListener('DOMContentLoaded', insertIt.bind(null, data));
+            }
+        }
+
+        if (isLocalStorage && localStorage.getItem(revisionKey) === spriteURL) {
+            var data = localStorage.getItem(dataKey);
+            if (data) {
+                insert(data);
+                return true;
+            }
+        }
+
+        try {
+            var request = new XMLHttpRequest();
+            request.open('GET', spriteURL, true);
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+                    data = request.responseText;
+                    insert(data);
+                    if (isLocalStorage) {
+                        localStorage.setItem(dataKey, data);
+                        localStorage.setItem(revisionKey, spriteURL);
+                    }
+                }
+            }
+            request.send();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    loadIconSprite();
+</script>
+
+<noscript class="capabilitymessage">
+    JavaScript is required to use Wagtail, but it is currently disabled.<br/> Here are the
+    <a href="https://www.enable-javascript.com/" target="_blank" rel="noreferrer">instructions how to enable JavaScript in your web browser</a>.
+</noscript>
+
+{# Translation strings object that Draftail requires #}
+<script>
+    (function (document, window) {
+        window.wagtailConfig = window.wagtailConfig || {};
+        {% locales as locales %}
+        {% i18n_enabled as i18n_enabled %}
+        wagtailConfig.I18N_ENABLED = {% if i18n_enabled %}true{% else %}false{% endif %};
+        wagtailConfig.LOCALES = {{ locales|safe }};
+        wagtailConfig.STRINGS = {% js_translation_strings %};
+        window.chooserUrls = {};
+    })(document, window);
+</script>
+<script id="wagtail-config" type="application/json">{"CSRF_TOKEN": "", "CSRF_HEADER_NAME": "X-Csrftoken", "ADMIN_URLS": {}, "WAGTAIL_AUTO_UPDATE_PREVIEW": false, "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL": 500}</script>
+
+{# Core scripts used in Wagtail admin #}
+<script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.6.0.min.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
+<script src="{% url 'wagtailadmin_javascript_catalog' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/telepath/telepath.js' %}"></script>
+
+{% include "wagtailadmin/pages/_editor_js.html" %}
+
+{# Add JavaScript that comes from inser_editor_js Wagtail hook #}
+{% hook_output 'insert_editor_js' %}
+
+{# We replace wagtailadmin/js/modal-workflow with the following file to add distinct css class to modal #}
+<script src="{% versioned_static 'wagtail_non_admin_draftail/modal-workflow.js' %}"></script>
+
+
+{# Override url callbacks for non-admin Draftail #}
+{% app_is_installed "wagtail.images" as wagtail_images_is_installed %}
+{% app_is_installed "wagtail.documents" as wagtail_documents_is_installed %}
+{% app_is_installed "wagtail.embeds" as wagtail_embeds_is_installed %}
+
+<script>
+    window.chooserUrls = window.chooserUrls || {};
+    {% if wagtail_images_is_installed %}
+        window.chooserUrls.imageChooser = "{% url 'wagtail_non_admin_draftail:image-chooser-and-upload' %}";
+    {% endif %}
+    {% if wagtail_documents_is_installed %}
+        window.chooserUrls.documentChooser = "{% url 'wagtail_non_admin_draftail:document-chooser' %}";
+    {% endif %}
+    {% if wagtail_embeds_is_installed %}
+        window.chooserUrls.embedsChooser = "{% url 'wagtail_non_admin_draftail:embed-chooser' %}";
+    {% endif %}
+    window.chooserUrls.pageChooser = "{% url 'wagtail_non_admin_draftail:external-link' %}";
+    window.chooserUrls.externalLinkChooser = "{% url 'wagtail_non_admin_draftail:external-link' %}";
+    window.chooserUrls.emailLinkChooser = "{% url 'wagtail_non_admin_draftail:email-link' %}";
+    window.chooserUrls.phoneLinkChooser = "{% url 'wagtail_non_admin_draftail:phone-link' %}";
+    window.chooserUrls.anchorLinkChooser = "{% url 'wagtail_non_admin_draftail:anchor-link' %}";
+</script>

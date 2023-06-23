@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    "wagtail.core",
+    "wagtail",
     "taggit",
     "modelcluster",
     "django.contrib.auth",
@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "non_admin_draftail",
+    "wagtail_non_admin_draftail",
     "example",
 ]
 

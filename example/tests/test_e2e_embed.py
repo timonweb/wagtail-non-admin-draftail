@@ -9,8 +9,9 @@ def test_embed_button(authenticated_page, live_server):
     authenticated_page.goto(live_server + FORM_PAGE_URL)
 
     # Click embed button in the editor
-    authenticated_page.fill('[role="textbox"]', "/")
-    authenticated_page.click('[href="#icon-media"]')
+    authenticated_page.fill('[role="textbox"]', "test whatever")
+    authenticated_page.dblclick('.public-DraftEditor-content [data-text="true"]')
+    authenticated_page.click("button[name=EMBED]")
 
     # Wait for modal to appear
     authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="visible")

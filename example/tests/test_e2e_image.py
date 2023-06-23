@@ -1,7 +1,8 @@
 import os
+import time
 
 import pytest
-from wagtail.core.models import Collection
+from wagtail.models import Collection
 from wagtail.images import get_image_model
 
 from .conftest import FORM_PAGE_URL
@@ -12,8 +13,13 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     authenticated_page.goto(live_server + FORM_PAGE_URL)
 
     # Click image button in the editor
-    authenticated_page.fill('[role="textbox"]', "/")
-    authenticated_page.click('[href="#icon-image"]')
+    # authenticated_page.fill('[role="textbox"]', "/")
+    # breakpoint()
+    # authenticated_page.click('#downshift-3-item-8') # Image button
+
+    authenticated_page.fill('[role="textbox"]', "test whatever")
+    authenticated_page.dblclick('.public-DraftEditor-content [data-text="true"]')
+    authenticated_page.click("button[name=IMAGE]")
 
     # Wait for modal to appear
     authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="visible")

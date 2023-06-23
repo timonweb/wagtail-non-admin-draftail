@@ -9,7 +9,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path(
         "non-admin-draftail/",
-        include("non_admin_draftail.urls", namespace="non_admin_draftail"),
+        include("wagtail_non_admin_draftail.urls", namespace="wagtail_non_admin_draftail"),
     ),
     path("example/", include("example.urls", namespace="example")),
     path("login/", LoginView.as_view(), name="login"),

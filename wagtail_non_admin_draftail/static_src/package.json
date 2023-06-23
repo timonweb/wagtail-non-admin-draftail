@@ -1,0 +1,14 @@
+{
+  "name": "static_src",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "sass --no-source-map src/index.scss ../static/wagtail_non_admin_draftail/draftail.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.57.1"
+  }
+}

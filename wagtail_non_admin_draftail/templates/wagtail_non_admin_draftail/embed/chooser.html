@@ -1,0 +1,14 @@
+{% extends "wagtail_non_admin_draftail/modal_base.html" %}
+
+{% load i18n %}
+{% trans "Insert embed" as ins_emb_str %}
+
+{% block title %}{% trans "Insert embed" %}{% endblock title %}
+
+{% block form %}
+    <form class="embed-form" action="{% url 'wagtail_non_admin_draftail:embed-upload' %}" method="POST" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans 'Insert' %}</button>
+    </form>
+{% endblock form %}

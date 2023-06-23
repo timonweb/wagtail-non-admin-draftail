@@ -1,26 +1,26 @@
 [tool.poetry]
-name = "non_admin_draftail"
-version = "0.17.2"
+name = "wagtail_non_admin_draftail"
+version = "0.18.0"
 description = "You can now use Wagtail Draftail editor on non-admin pages"
 authors = ["Tim Kamanin <tim@timonweb.com>"]
 license = "MIT"
 homepage = "https://timonweb.com"
-repository = "https://github.com/timonweb/non-admin-draftail"
+repository = "https://github.com/timonweb/wagtail-non-admin-draftail"
 
 [tool.poetry.dependencies]
-python = "^3.7"
-wagtail = ">=4.1"
+python = "^3.8.1"
+wagtail = ">=5.0"
 
 [tool.poetry.dev-dependencies]
 pytest-django = "^4.4.0"
-pytest-playwright = "^0.2.2"
+pytest-playwright = "^0.3.3"
 django-managepy-anywhere = "^2.0"
 pytest-faker = "^2.0.0"
-pytest-env = "^0.6.2"
-pre-commit = "^2.21.0"
-flake8 = "^5.0.4"
-black = "^22.8.0"
-isort = "^5.11.4"
+pytest-env = "^0.8.2"
+pre-commit = "^3.3.3"
+flake8 = "^6.0.0"
+black = "^23.3.0"
+isort = "^5.12.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
