@@ -20,4 +20,4 @@ class NonAdminDraftailRichTextArea(DraftailRichTextArea):
         ```
     """
 
-    template_name = "wagtail_non_admin_draftail/widgets/wagtail_non_admin_draftail_rich_text_area.html"
+    template_name = "wagtail_non_admin_draftail/widgets/non_admin_draftail_rich_text_area.html"
