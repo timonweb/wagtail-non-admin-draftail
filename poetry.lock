@@ -181,34 +181,11 @@ files = [
 
 [[package]]
 name = "django"
-version = "4.2.23"
-description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
-optional = false
-python-versions = ">=3.8"
-groups = ["main"]
-markers = "python_version < \"3.12\""
-files = [
-    {file = "django-4.2.23-py3-none-any.whl", hash = "sha256:dafbfaf52c2f289bd65f4ab935791cb4fb9a198f2a5ba9faf35d7338a77e9803"},
-    {file = "django-4.2.23.tar.gz", hash = "sha256:42fdeaba6e6449d88d4f66de47871015097dc6f1b87910db00a91946295cfae4"},
-]
-
-[package.dependencies]
-asgiref = ">=3.6.0,<4"
-sqlparse = ">=0.3.1"
-tzdata = {version = "*", markers = "sys_platform == \"win32\""}
-
-[package.extras]
-argon2 = ["argon2-cffi (>=19.1.0)"]
-bcrypt = ["bcrypt"]
-
-[[package]]
-name = "django"
 version = "5.2.3"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version >= \"3.12\""
 files = [
     {file = "django-5.2.3-py3-none-any.whl", hash = "sha256:c517a6334e0fd940066aa9467b29401b93c37cec2e61365d663b80922542069d"},
     {file = "django-5.2.3.tar.gz", hash = "sha256:335213277666ab2c5cac44a792a6d2f3d58eb79a80c14b6b160cd4afc3b75684"},
@@ -276,29 +253,11 @@ testing = ["django-modelcluster"]
 
 [[package]]
 name = "django-stubs-ext"
-version = "5.1.3"
-description = "Monkey-patching and extensions for django-stubs"
-optional = false
-python-versions = ">=3.8"
-groups = ["main"]
-markers = "python_version < \"3.12\""
-files = [
-    {file = "django_stubs_ext-5.1.3-py3-none-any.whl", hash = "sha256:64561fbc53e963cc1eed2c8eb27e18b8e48dcb90771205180fe29fc8a59e55fd"},
-    {file = "django_stubs_ext-5.1.3.tar.gz", hash = "sha256:3e60f82337f0d40a362f349bf15539144b96e4ceb4dbd0239be1cd71f6a74ad0"},
-]
-
-[package.dependencies]
-django = "*"
-typing-extensions = "*"
-
-[[package]]
-name = "django-stubs-ext"
 version = "5.2.1"
 description = "Monkey-patching and extensions for django-stubs"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version >= \"3.12\""
 files = [
     {file = "django_stubs_ext-5.2.1-py3-none-any.whl", hash = "sha256:98fb0646f1a1ef07708eec5f6f7d27523f12c0c8714abae8db981571ff957588"},
     {file = "django_stubs_ext-5.2.1.tar.gz", hash = "sha256:fc0582cb3289306c43ce4a0a15af86922ce1dbec3c19eab80980ee70c04e0392"},
@@ -802,5 +761,5 @@ wand = ["Wand (>=0.6,<1.0)"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = "^3.9.0"
-content-hash = "9e8a66343cd4d16084949778f021756e3cc4b52d207fd4e50a181e48f3efd911"
+python-versions = "^3.10.0"
+content-hash = "1374733275bb6ae1532783f7cc4f56f885b014b9d28c0ac35d77814170defd54"
