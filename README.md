@@ -4,8 +4,10 @@ Wagtail has an excellent WYSIWYG editor called Draftail. Unfortunately, the edit
 
 This is where Non-admin Draftail comes to the rescue! The package provides all the necessary magic to set Draftail free from Wagtail admin and make it usable with a regular Django form that doesn't belong to the CMS admin interface. The only requirement is, of course, to have Wagtail installed.
 
-# Installation
+# Compatibility
+The current version of the package is compatible with Wagtail v7+.
 
+# Installation
 1. Install the package from PyPI: `pip install wagtail_non_admin_draftail`
 2. Add `wagtail_non_admin_draftail` to `INSTALLED_APPS`:
     ```python
