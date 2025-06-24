@@ -126,13 +126,12 @@ def image_select_format(request, image_id):
         if form.is_valid():
             format = get_image_format(form.cleaned_data["format"])
             preview_image = image.get_rendition(format.filter_spec)
-
             image_data = {
                 "id": image.id,
                 "title": image.title,
                 "format": format.name,
                 "alt": form.cleaned_data["alt_text"],
-                "class": format.classnames,
+                "class": format.classname,
                 "edit_link": reverse("wagtailimages:edit", args=(image.id,)),
                 "preview": {
                     "url": preview_image.url,
