@@ -30,8 +30,6 @@ def test_link_button(authenticated_page, live_server):
     authenticated_page.wait_for_selector(".Non-Admin-Draftail__modal", state="hidden")
 
     # Make sure link is embedded in draftail
-    inserted_link = authenticated_page.query_selector(
-        ".Draftail-Editor a.TooltipEntity"
-    )
+    inserted_link = authenticated_page.query_selector(".Draftail-Editor a.TooltipEntity")
     assert TEXT == inserted_link.text_content(), "Link has text set"
     assert URL == inserted_link.get_attribute("href"), "Url is what user set"

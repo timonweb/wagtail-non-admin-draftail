@@ -58,9 +58,7 @@ def embed_chooser_upload(request):
                     },
                 )
             except AccessDeniedEmbedlyException:
-                error = _(
-                    "There seems to be a problem with your embedly API key. Please check your settings."
-                )
+                error = _("There seems to be a problem with your embedly API key. Please check your settings.")
             except (EmbedNotFoundException, EmbedUnsupportedProviderException):
                 error = _("Cannot find an embed for this URL.")
             except EmbedlyException:

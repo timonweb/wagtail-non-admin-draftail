@@ -16,9 +16,7 @@ def page(page, live_server):
 
 @pytest.fixture
 def user(django_user_model, faker):
-    return django_user_model.objects.create(
-        username=faker.email(), password=make_password(DEFAULT_TEST_PASSWORD)
-    )
+    return django_user_model.objects.create(username=faker.email(), password=make_password(DEFAULT_TEST_PASSWORD))
 
 
 @pytest.fixture

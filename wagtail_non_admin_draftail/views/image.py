@@ -18,9 +18,7 @@ def get_chooser_js_data():
     return {
         "step": "choose",
         "error_label": _("Server Error"),
-        "error_message": _(
-            "Report this error to your webmaster with the following information:"
-        ),
+        "error_message": _("Report this error to your webmaster with the following information:"),
         "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
     }
 
@@ -28,9 +26,7 @@ def get_chooser_js_data():
 def get_chooser_context(request):
     """Helper function to return common template context variables for the main chooser view"""
 
-    collections = permission_policy.collections_user_has_permission_for(
-        request.user, "choose"
-    )
+    collections = permission_policy.collections_user_has_permission_for(request.user, "choose")
     if len(collections) < 2:
         collections = None
 
@@ -138,9 +134,7 @@ def image_select_format(request, image_id):
                     "width": preview_image.width,
                     "height": preview_image.height,
                 },
-                "html": format.image_to_editor_html(
-                    image, form.cleaned_data["alt_text"]
-                ),
+                "html": format.image_to_editor_html(image, form.cleaned_data["alt_text"]),
             }
 
             return render_modal_workflow(

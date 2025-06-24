@@ -1,9 +1,8 @@
 import os
-import time
 
 import pytest
-from wagtail.models import Collection
 from wagtail.images import get_image_model
+from wagtail.models import Collection
 
 from .conftest import FORM_PAGE_URL
 
@@ -11,11 +10,6 @@ from .conftest import FORM_PAGE_URL
 @pytest.mark.django_db
 def test_image_button(ensure_root_collection, authenticated_page, live_server):
     authenticated_page.goto(live_server + FORM_PAGE_URL)
-
-    # Click image button in the editor
-    # authenticated_page.fill('[role="textbox"]', "/")
-    # breakpoint()
-    # authenticated_page.click('#downshift-3-item-8') # Image button
 
     authenticated_page.fill('[role="textbox"]', "test whatever")
     authenticated_page.dblclick('.public-DraftEditor-content [data-text="true"]')
@@ -26,12 +20,8 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     authenticated_page.wait_for_selector("text=Upload an image", state="visible")
 
     # Upload example file
-    file_input = authenticated_page.query_selector(
-        ".Non-Admin-Draftail__modal form [type=file]"
-    )
-    file_input.set_input_files(
-        os.path.join(os.path.dirname(__file__), "seed/example.png")
-    )
+    file_input = authenticated_page.query_selector(".Non-Admin-Draftail__modal form [type=file]")
+    file_input.set_input_files(os.path.join(os.path.dirname(__file__), "seed/example.png"))
 
     # Submit the form
     authenticated_page.click(".Non-Admin-Draftail__modal form [type=submit]")

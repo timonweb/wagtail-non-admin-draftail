@@ -17,15 +17,12 @@ def external_link(request):
     }
 
     if request.method == "POST":
-        form = ExternalLinkChooserForm(
-            request.POST, initial=initial_data, prefix="external-link-chooser"
-        )
+        form = ExternalLinkChooserForm(request.POST, initial=initial_data, prefix="external-link-chooser")
 
         if form.is_valid():
             result = {
                 "url": form.cleaned_data["url"],
-                "title": form.cleaned_data["link_text"].strip()
-                or form.cleaned_data["url"],
+                "title": form.cleaned_data["link_text"].strip() or form.cleaned_data["url"],
                 # If the user has explicitly entered / edited something in the link_text field,
                 # always use that text. If not, we should favour keeping the existing link/selection
                 # text, where applicable.
@@ -42,9 +39,7 @@ def external_link(request):
                 json_data={"step": "external_link_chosen", "result": result},
             )
     else:
-        form = ExternalLinkChooserForm(
-            initial=initial_data, prefix="external-link-chooser"
-        )
+        form = ExternalLinkChooserForm(initial=initial_data, prefix="external-link-chooser")
 
     return render_modal_workflow(
         request,
@@ -68,15 +63,12 @@ def email_link(request):
     }
 
     if request.method == "POST":
-        form = EmailLinkChooserForm(
-            request.POST, initial=initial_data, prefix="email-link-chooser"
-        )
+        form = EmailLinkChooserForm(request.POST, initial=initial_data, prefix="email-link-chooser")
 
         if form.is_valid():
             result = {
                 "url": "mailto:" + form.cleaned_data["email_address"],
-                "title": form.cleaned_data["link_text"].strip()
-                or form.cleaned_data["email_address"],
+                "title": form.cleaned_data["link_text"].strip() or form.cleaned_data["email_address"],
                 # If the user has explicitly entered / edited something in the link_text field,
                 # always use that text. If not, we should favour keeping the existing link/selection
                 # text, where applicable.
@@ -114,15 +106,12 @@ def phone_link(request):
     }
 
     if request.method == "POST":
-        form = PhoneLinkChooserForm(
-            request.POST, initial=initial_data, prefix="phone-link-chooser"
-        )
+        form = PhoneLinkChooserForm(request.POST, initial=initial_data, prefix="phone-link-chooser")
 
         if form.is_valid():
             result = {
                 "url": "tel:" + form.cleaned_data["phone_number"],
-                "title": form.cleaned_data["link_text"].strip()
-                or form.cleaned_data["phone_number"],
+                "title": form.cleaned_data["link_text"].strip() or form.cleaned_data["phone_number"],
                 # If the user has explicitly entered / edited something in the link_text field,
                 # always use that text. If not, we should favour keeping the existing link/selection
                 # text, where applicable.
@@ -160,15 +149,12 @@ def anchor_link(request):
     }
 
     if request.method == "POST":
-        form = AnchorLinkChooserForm(
-            request.POST, initial=initial_data, prefix="anchor-link-chooser"
-        )
+        form = AnchorLinkChooserForm(request.POST, initial=initial_data, prefix="anchor-link-chooser")
 
         if form.is_valid():
             result = {
                 "url": "#" + form.cleaned_data["url"],
-                "title": form.cleaned_data["link_text"].strip()
-                or form.cleaned_data["url"],
+                "title": form.cleaned_data["link_text"].strip() or form.cleaned_data["url"],
                 "prefer_this_title_as_link_text": ("link_text" in form.changed_data),
             }
             return render_modal_workflow(

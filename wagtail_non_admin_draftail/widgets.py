@@ -26,22 +26,22 @@ class NonAdminDraftailRichTextArea(DraftailRichTextArea):
 
     def replace_admin_chooser_urls(self, options):
         chooser_urls_map = {
-            'imageChooser': 'wagtail_non_admin_draftail:image-chooser-and-upload',
-            'pageChooser': 'wagtail_non_admin_draftail:external-link',
-            'externalLinkChooser': 'wagtail_non_admin_draftail:external-link',
-            'emailLinkChooser': 'wagtail_non_admin_draftail:email-link',
-            'phoneLinkChooser': 'wagtail_non_admin_draftail:phone-link',
-            'anchorLinkChooser': 'wagtail_non_admin_draftail:anchor-link',
-            'embedsChooser': 'wagtail_non_admin_draftail:embed-chooser',
-            'documentChooser': 'wagtail_non_admin_draftail:document-chooser',
+            "imageChooser": "wagtail_non_admin_draftail:image-chooser-and-upload",
+            "pageChooser": "wagtail_non_admin_draftail:external-link",
+            "externalLinkChooser": "wagtail_non_admin_draftail:external-link",
+            "emailLinkChooser": "wagtail_non_admin_draftail:email-link",
+            "phoneLinkChooser": "wagtail_non_admin_draftail:phone-link",
+            "anchorLinkChooser": "wagtail_non_admin_draftail:anchor-link",
+            "embedsChooser": "wagtail_non_admin_draftail:embed-chooser",
+            "documentChooser": "wagtail_non_admin_draftail:document-chooser",
         }
 
         def recursive_replace_urls(obj):
-            for key in obj.get('chooserUrls', {}).keys():
+            for key in obj.get("chooserUrls", {}).keys():
                 if new_urlname := chooser_urls_map.get(key):
-                    obj['chooserUrls'][key] = reverse(new_urlname)
+                    obj["chooserUrls"][key] = reverse(new_urlname)
 
-            for entity_type in obj.get('entityTypes', []):
+            for entity_type in obj.get("entityTypes", []):
                 recursive_replace_urls(entity_type)
 
             return obj

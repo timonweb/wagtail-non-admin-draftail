@@ -24,15 +24,11 @@ class PublicCollectionMemberForm(BaseCollectionMemberForm):
 
         # Get or initiate the Public uploads collection.
         try:
-            public_collection = Collection.objects.get(
-                name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
-            )
+            public_collection = Collection.objects.get(name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME)
         except Collection.DoesNotExist:
             root_coll = Collection.get_first_root_node()
             root_coll.add_child(name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME)
-            public_collection = Collection.objects.get(
-                name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
-            )
+            public_collection = Collection.objects.get(name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME)
 
         self.collections = (public_collection,)
 
