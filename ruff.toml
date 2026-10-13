@@ -26,7 +26,7 @@ ignore = [
 
 
 [lint.isort]
-known-first-party = ["wagtail_non_admin_draftail"]
+known-first-party = ["wagtail_non_admin_draftail", "demo", "notes"]
 lines-after-imports = 2
 lines-between-types = 1
 

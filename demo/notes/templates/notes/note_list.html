@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Notes · {{ block.super }}{% endblock title %}
+
+{% block content %}
+    <h1>Notes</h1>
+    <ul class="note-list">
+        {% for note in note_list %}
+            <li>
+                <a href="{{ note.get_absolute_url }}">{{ note.title }}</a>
+                <time datetime="{{ note.updated_at|date:'c' }}">updated {{ note.updated_at|date:"j M Y, H:i" }}</time>
+            </li>
+        {% empty %}
+            <li>No notes yet. <a href="{% url 'notes:create' %}">Write the first one</a>.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

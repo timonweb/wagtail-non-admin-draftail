@@ -65,6 +65,26 @@ coverage:
     uv run coverage report -m
     uv run coverage html
 
+# Make migrations and migrate the database.
+migrate:
+    uv run ./demo/manage.py makemigrations
+    uv run ./demo/manage.py migrate
+
+# Run the demo development server.
+runserver:
+    uv run ./demo/manage.py runserver
+
+# Create a demo user; log in through the Wagtail admin login to write notes.
+createsuperuser:
+    uv run ./demo/manage.py createsuperuser
+
+# Open a shell to the demo application.
+shell:
+    uv run ./demo/manage.py shell
+
+# Run the demo application.
+demo: migrate runserver
+
 # Compile the SCSS sources into the shipped draftail.css.
 build-css:
     npm run build:css

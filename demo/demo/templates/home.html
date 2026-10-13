@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Draftail outside the Wagtail admin</h1>
+    <p>
+        This demo uses Wagtail's Draftail editor on ordinary Django form pages. Anyone can read the notes; log in to
+        write or edit one with images, documents, embeds and links.
+    </p>
+    <p>
+        Images and documents uploaded from the editor are saved in the "Public uploads" collection, which you can browse
+        in the <a href="{% url 'wagtailadmin_home' %}">Wagtail admin</a>.
+    </p>
+    <p><a href="{% url 'notes:list' %}">Browse the notes</a></p>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Non-admin Draftail demo{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
+    {% block wagtail_non_admin_draftail_head %}{% endblock wagtail_non_admin_draftail_head %}
+</head>
+<body>
+<header class="site-header">
+    <a class="site-header__title" href="{% url 'home' %}">Non-admin Draftail demo</a>
+    <nav class="site-header__nav">
+        <a href="{% url 'notes:list' %}">Notes</a>
+        <a href="{% url 'notes:create' %}">New note</a>
+        <a href="{% url 'wagtailadmin_home' %}">Wagtail admin</a>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'wagtailadmin_logout' %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{% url 'home' %}">
+                <button type="submit">Log out {{ user.get_username }}</button>
+            </form>
+        {% else %}
+            <a href="{% url 'wagtailadmin_login' %}?next={{ request.get_full_path|urlencode }}">Log in</a>
+        {% endif %}
+    </nav>
+</header>
+<main class="content">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% block content %}{% endblock content %}
+</main>
+</body>
+</html>

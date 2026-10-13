@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{% if object %}Edit {{ object.title }}{% else %}New note{% endif %} · {{ block.super }}{% endblock title %}
+
+{% block wagtail_non_admin_draftail_head %}
+    {% include "wagtail_non_admin_draftail/draftail_media.html" %}
+    {# The editor's own script (draftail.js) is widget media; {{ form }} doesn't output it. #}
+    {{ form.media }}
+{% endblock wagtail_non_admin_draftail_head %}
+
+{% block content %}
+    <h1>{% if object %}Edit “{{ object.title }}”{% else %}New note{% endif %}</h1>
+    <form method="post" class="note-form">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Save</button>
+    </form>
+{% endblock content %}

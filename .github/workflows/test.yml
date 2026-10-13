@@ -47,6 +47,9 @@ jobs:
       - run: just coverage
       - run: uv run ./testmanage.py check
       - run: uv run ./testmanage.py makemigrations --check --noinput
+      - run: uv run ./demo/manage.py check
+      - run: uv run ./demo/manage.py makemigrations --check --noinput
+      - run: uv run ./demo/manage.py test notes
 
   test-lowest-deps:
     runs-on: ubuntu-latest

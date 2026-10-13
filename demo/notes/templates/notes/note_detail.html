@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}{{ note.title }} · {{ block.super }}{% endblock title %}
+
+{% block content %}
+    <article>
+        <h1>{{ note.title }}</h1>
+        <p class="note-meta">
+            Updated <time datetime="{{ note.updated_at|date:'c' }}">{{ note.updated_at|date:"j M Y, H:i" }}</time>
+            · <a href="{% url 'notes:update' note.pk %}">Edit</a>
+        </p>
+        <div class="note-body">{{ note.body|richtext }}</div>
+    </article>
+{% endblock content %}
