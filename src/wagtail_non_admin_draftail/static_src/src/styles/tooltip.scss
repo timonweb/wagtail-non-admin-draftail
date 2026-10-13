@@ -63,52 +63,55 @@ $tooltip-color-no: #f04444;
       content: '';
       position: absolute;
       border: $tooltip-arrow-height solid transparent;
+      // stylelint-disable-next-line declaration-no-important -- Hides the arrow Draftail adds; the frontend tooltip is drawn without one.
       display: none !important;
     }
+  }
 
-    &--top {
-      @include arrow--top;
-    }
+  .Tooltip--top {
+    @include arrow--top;
+  }
 
-    &--left {
-      @include arrow--left;
-    }
+  .Tooltip--left {
+    @include arrow--left;
+  }
 
-    &--top-left {
-      @include arrow--top-left;
-    }
+  .Tooltip--top-left {
+    @include arrow--top-left;
+  }
 
-    &__link {
-      font-size: 0.875rem;
-      margin-inline-end: 1 * 4;
-      display: inline-block;
+  .Tooltip__link {
+    font-size: 0.875rem;
+    margin-inline-end: 1 * 4;
+    display: inline-block;
 
-      &,
-      &:hover {
-        color: #111;
-      }
-    }
-
-    &__button {
-      background: #03686a;
-      border: 1px solid #03686a;
-      border-radius: 8px;
-      color: #fff;
-      padding: 5px 10px;
-      cursor: pointer;
-
-      &.no.button-secondary {
-        background: #fff;
-        color: $tooltip-color-no;
-        border-color: $tooltip-color-no;
-        margin-left: 10px;
-
-        &:hover {
-          color: $tooltip-color-no;
-        }
-      }
+    &,
+    &:hover {
+      color: #111;
     }
   }
+
+  .Tooltip__button {
+    background: #03686a;
+    border: 1px solid #03686a;
+    border-radius: 8px;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  // stylelint-disable selector-max-specificity -- Must outrank the generic .Tooltip__button style above.
+  .Tooltip__button.no.button-secondary {
+    background: #fff;
+    color: $tooltip-color-no;
+    border-color: $tooltip-color-no;
+    margin-inline-start: 10px;
+
+    &:hover {
+      color: $tooltip-color-no;
+    }
+  }
+  // stylelint-enable selector-max-specificity
 }
 
 .Draftail-Tooltip {
@@ -122,9 +125,11 @@ $tooltip-color-no: #f04444;
       width: 100%;
       padding: 0.5rem;
       border-width: 1px;
+
       &:focus {
         outline-color: #03686a;
       }
+
       &[disabled] {
         display: none;
       }
@@ -139,7 +144,7 @@ $tooltip-color-no: #f04444;
   .w-combobox__optgroup {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+    gap: 1rem;
   }
 
   .w-combobox__option {
@@ -157,7 +162,7 @@ $tooltip-color-no: #f04444;
   }
 
   .w-combobox__option-text {
-    margin-left: 0.5rem;
+    margin-inline-start: 0.5rem;
   }
 
   .w-combobox__option-icon,

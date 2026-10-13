@@ -1,6 +1,5 @@
 .Draftail-Editor__wrapper {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-inline: 40px;
   box-sizing: border-box;
 
   .public-DraftEditor-content.public-DraftEditor-content {
@@ -17,10 +16,11 @@
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     border: 0;
   }
 
+  // stylelint-disable-next-line selector-max-specificity -- The doubled class must outrank Draftail's own focus styles.
   .Draftail-Editor--focus
     .public-DraftEditor-content.public-DraftEditor-content {
     border: 0;
@@ -28,6 +28,7 @@
 
   .Draftail-FloatingToolbar,
   .Draftail-InlineToolbar {
+    // stylelint-disable-next-line declaration-no-important -- Draftail sets the toolbar background with higher specificity.
     background: #03686a !important;
 
     .Draftail-ToolbarButton__label,
@@ -39,8 +40,10 @@
   }
 
   .Draftail-Tooltip {
+    // stylelint-disable declaration-no-important -- Overrides tippy.js inline theme styles on the Draftail tooltip.
     background: #fff !important;
     border-radius: 8px !important;
+    // stylelint-enable declaration-no-important
   }
 }
 
@@ -50,6 +53,7 @@
     visibility: visible;
     cursor: pointer;
 
+    // stylelint-disable selector-max-specificity -- Must outrank Draftail's trigger hover/focus styles while the editor has focus.
     &:hover,
     &:active,
     &:focus {
@@ -59,5 +63,6 @@
         fill: #03686a;
       }
     }
+    // stylelint-enable selector-max-specificity
   }
 }

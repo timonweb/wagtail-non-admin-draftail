@@ -1,4 +1,4 @@
-@import './styles/editor.scss';
-@import './styles/modal.scss';
-@import './styles/chooser.scss';
-@import './styles/tooltip.scss';
+@use './styles/editor';
+@use './styles/modal';
+@use './styles/chooser';
+@use './styles/tooltip';
