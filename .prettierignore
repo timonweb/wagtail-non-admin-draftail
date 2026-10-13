@@ -1,0 +1,16 @@
+# Irrelevant files ignored for performance reasons.
+node_modules
+*.min.js
+**/lib/
+public/
+coverage/
+**/vendor/
+_build
+# File types which Prettier supports but we don’t want auto-formatting.
+*.md
+# Files which contain incompatible syntax.
+*.html
+.mypy_cache
+/coverage_html_report
+# Compiled from static_src; edit the SCSS sources instead.
+src/wagtail_non_admin_draftail/static/**/*.css

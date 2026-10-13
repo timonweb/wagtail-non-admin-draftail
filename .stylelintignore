@@ -1,0 +1,13 @@
+node_modules
+*.min.css
+**/lib/
+public/
+coverage/
+**/vendor/
+_build
+.mypy_cache
+/coverage_html_report
+/htmlcov
+/demo
+# Compiled from static_src; edit the SCSS sources instead.
+src/wagtail_non_admin_draftail/static/**/*.css

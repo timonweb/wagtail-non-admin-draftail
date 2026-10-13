@@ -3,6 +3,7 @@ from django.urls import path
 
 from .views.link import anchor_link, email_link, external_link, phone_link
 
+
 app_name = "wagtail_non_admin_draftail"
 
 urlpatterns = [
@@ -16,7 +17,9 @@ if apps.is_installed("wagtail.images"):
     from .views.image import image_chooser_and_upload, image_select_format
 
     urlpatterns += [
-        path("image-upload/", image_chooser_and_upload, name="image-chooser-and-upload"),
+        path(
+            "image-upload/", image_chooser_and_upload, name="image-chooser-and-upload"
+        ),
         path(
             "image-upload/<int:image_id>/select_format/",
             image_select_format,

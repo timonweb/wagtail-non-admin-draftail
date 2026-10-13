@@ -1,6 +1,7 @@
 import os
 
 import pytest
+
 from wagtail.images import get_image_model
 from wagtail.models import Collection
 
@@ -20,8 +21,12 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     authenticated_page.wait_for_selector("text=Upload an image", state="visible")
 
     # Upload example file
-    file_input = authenticated_page.query_selector(".Non-Admin-Draftail__modal form [type=file]")
-    file_input.set_input_files(os.path.join(os.path.dirname(__file__), "seed/example.png"))
+    file_input = authenticated_page.query_selector(
+        ".Non-Admin-Draftail__modal form [type=file]"
+    )
+    file_input.set_input_files(
+        os.path.join(os.path.dirname(__file__), "seed/example.png")
+    )
 
     # Submit the form
     authenticated_page.click(".Non-Admin-Draftail__modal form [type=submit]")

@@ -5,9 +5,9 @@
 
   .public-DraftEditor-content.public-DraftEditor-content {
     appearance: none;
-    background-color: #FFF;
+    background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: .3125rem;
+    border-radius: 0.3125rem;
   }
 
   .w-sr-only {
@@ -21,15 +21,18 @@
     border: 0;
   }
 
-  .Draftail-Editor--focus .public-DraftEditor-content.public-DraftEditor-content {
+  .Draftail-Editor--focus
+    .public-DraftEditor-content.public-DraftEditor-content {
     border: 0;
   }
 
   .Draftail-FloatingToolbar,
   .Draftail-InlineToolbar {
-    background: #03686A !important;
+    background: #03686a !important;
 
-    .Draftail-ToolbarButton__label, .icon, .Draftail-Icon {
+    .Draftail-ToolbarButton__label,
+    .icon,
+    .Draftail-Icon {
       fill: #fff;
       color: #fff;
     }
@@ -41,16 +44,19 @@
   }
 }
 
-.Draftail-Editor--focus, .Draftail-Editor:focus-within {
+.Draftail-Editor--focus,
+.Draftail-Editor:focus-within {
   .Draftail-BlockToolbar__trigger {
     visibility: visible;
     cursor: pointer;
 
-    &:hover, &:active, &:focus {
-      border: 1px solid #03686A;
+    &:hover,
+    &:active,
+    &:focus {
+      border: 1px solid #03686a;
 
       svg {
-        fill: #03686A;
+        fill: #03686a;
       }
     }
   }

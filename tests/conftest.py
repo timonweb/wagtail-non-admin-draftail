@@ -1,16 +1,18 @@
 import os
 
 import pytest
+
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 from wagtail.models import Collection
+
 
 # Playwright's sync API runs an event loop in the test thread, which trips
 # Django's async-safety check on every ORM call made from the test.
 os.environ.setdefault("DJANGO_ALLOW_ASYNC_UNSAFE", "true")
 
 DEFAULT_TEST_USERNAME = "testuser@example.com"
-DEFAULT_TEST_PASSWORD = "testuser"
+DEFAULT_TEST_PASSWORD = "testuser"  # noqa: S105
 FORM_PAGE_URL = reverse("form")
 
 

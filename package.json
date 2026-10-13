@@ -1,0 +1,24 @@
+{
+  "name": "package-tooling",
+  "private": true,
+  "version": "0.0.0-dev",
+  "type": "module",
+  "devDependencies": {
+    "@wagtail/stylelint-config-wagtail": "^2.0.0",
+    "prettier": "^3.9.4",
+    "sass": "^1.105.1",
+    "stylelint": "^17.14.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm"
+    }
+  },
+  "scripts": {
+    "build:css": "sass --no-source-map src/wagtail_non_admin_draftail/static_src/src/index.scss src/wagtail_non_admin_draftail/static/wagtail_non_admin_draftail/draftail.css",
+    "lint": "npm run lint:format && npm run lint:css",
+    "lint:format": "prettier --check \"**/?(.)*.{css,scss,mjs,js,ts,tsx,json,jsonc,yaml,yml}\"",
+    "lint:css": "stylelint --allow-empty-input \"**/?(.)*.{css,scss}\"",
+    "format": "prettier --write \"**/?(.)*.{css,scss,mjs,js,ts,tsx,json,jsonc,yaml,yml}\""
+  }
+}

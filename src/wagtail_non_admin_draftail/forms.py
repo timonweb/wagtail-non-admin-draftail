@@ -3,6 +3,7 @@ from django.forms import modelform_factory
 from wagtail.admin.forms.collections import BaseCollectionMemberForm
 from wagtail.images.forms import formfield_for_dbfield
 
+
 try:
     from wagtail.models import Collection
 except ImportError:
@@ -24,11 +25,15 @@ class PublicCollectionMemberForm(BaseCollectionMemberForm):
 
         # Get or initiate the Public uploads collection.
         try:
-            public_collection = Collection.objects.get(name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME)
+            public_collection = Collection.objects.get(
+                name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
+            )
         except Collection.DoesNotExist:
             root_coll = Collection.get_first_root_node()
             root_coll.add_child(name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME)
-            public_collection = Collection.objects.get(name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME)
+            public_collection = Collection.objects.get(
+                name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
+            )
 
         self.collections = (public_collection,)
 

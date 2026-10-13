@@ -16,9 +16,19 @@ The current version of the package is compatible with Wagtail v7+.
         'wagtail_non_admin_draftail',
     ]
     ```
-3. Add the following line to the main `urls.py` of the project:
+3. Add the package URLs to the main `urls.py` of the project:
     ```python
-    path("non-admin-draftail/", include("wagtail_non_admin_draftail.urls", namespace="wagtail_non_admin_draftail")),
+    from django.urls import include, path
+
+    urlpatterns = [
+        # ... your other URL patterns
+        path(
+            "non-admin-draftail/",
+            include(
+                "wagtail_non_admin_draftail.urls", namespace="wagtail_non_admin_draftail"
+            ),
+        ),
+    ]
     ```
 4. Include `"wagtail_non_admin_draftail/draftail_media.html"` in the `<head>` of every page that will have the editor.
    There are many ways to do this. Here is one way to accomplish it:
@@ -53,6 +63,7 @@ The current version of the package is compatible with Wagtail v7+.
     ```python
     from wagtail_non_admin_draftail.widgets import NonAdminDraftailRichTextArea
 
+
     class NoteForm(forms.ModelForm):
         class Meta:
             model = Note
@@ -76,9 +87,10 @@ Assuming the following steps:
     from django.db import models
     from wagtail.fields import RichTextField
 
+
     class JobPost(models.Model):
-      title = models.CharField(max_length=255)
-      body = RichTextField()
+        title = models.CharField(max_length=255)
+        body = RichTextField()
     ```
 
 2. Ensure that `job_post_form.html` (or whatever template is responsible for rendering the Job post edit form) includes `draftail_media.html` in the `<head>` of the page (see step 4 of the Installation instructions above).
@@ -118,6 +130,10 @@ Assuming you have completed steps 1–3 above, install the Playwright browser us
 uv run playwright install chromium
 uv run pytest
 ```
+
+If you have [just](https://github.com/casey/just) installed, `just install` sets up Python and Node.js dependencies, the
+Playwright browser, and the [prek](https://prek.j178.dev/) git hooks in one go. Then use `just test` and `just lint`
+(run `just` to list all recipes).
 
 # Created by
 [Tim Kamanin - A Full Stack Python / JavaScript Developer](https://timonweb.com)

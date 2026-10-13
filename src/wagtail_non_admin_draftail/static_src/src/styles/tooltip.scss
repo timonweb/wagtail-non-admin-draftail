@@ -3,12 +3,12 @@ $tooltip-arrow-height: 15px;
 $tooltip-arrow-spacing: 25px;
 $tooltip-radius: 5px;
 
-$tooltip-chrome: #FFF;
+$tooltip-chrome: #fff;
 $tooltip-chrome-text: #333;
 
 $tooltip-z-index: 1;
 
-$tooltip-color-no: #F04444;
+$tooltip-color-no: #f04444;
 
 @mixin arrow--top {
   margin-top: $tooltip-arrow-spacing;
@@ -42,7 +42,6 @@ $tooltip-color-no: #F04444;
 }
 
 .Draftail-Editor__wrapper {
-
   .tippy-content .w-combobox {
     padding: $tooltip-spacing;
     background-color: $tooltip-chrome;
@@ -91,15 +90,15 @@ $tooltip-color-no: #F04444;
     }
 
     &__button {
-      background: #03686A;
-      border: 1px solid #03686A;
+      background: #03686a;
+      border: 1px solid #03686a;
       border-radius: 8px;
-      color: #FFF;
+      color: #fff;
       padding: 5px 10px;
       cursor: pointer;
 
       &.no.button-secondary {
-        background: #FFF;
+        background: #fff;
         color: $tooltip-color-no;
         border-color: $tooltip-color-no;
         margin-left: 10px;
@@ -109,11 +108,7 @@ $tooltip-color-no: #F04444;
         }
       }
     }
-
-
   }
-
-
 }
 
 .Draftail-Tooltip {
@@ -125,10 +120,10 @@ $tooltip-color-no: #F04444;
     input {
       box-sizing: border-box;
       width: 100%;
-      padding: .5rem;
+      padding: 0.5rem;
       border-width: 1px;
       &:focus {
-        outline-color: #03686A;
+        outline-color: #03686a;
       }
       &[disabled] {
         display: none;
@@ -138,7 +133,7 @@ $tooltip-color-no: #F04444;
 
   .w-combobox__status,
   .w-combobox__menu {
-    margin-top: .75rem;
+    margin-top: 0.75rem;
   }
 
   .w-combobox__optgroup {
@@ -151,16 +146,18 @@ $tooltip-color-no: #F04444;
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: .25rem;
+    padding: 0.25rem;
 
-    &:focus, &[aria-selected="true"], &:hover {
-      outline: #03686A solid 2px;
+    &:focus,
+    &[aria-selected='true'],
+    &:hover {
+      outline: #03686a solid 2px;
       border-radius: 4px;
     }
   }
 
   .w-combobox__option-text {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
   }
 
   .w-combobox__option-icon,

@@ -1,6 +1,7 @@
 import os
 
 import pytest
+
 from wagtail.documents import get_document_model
 from wagtail.models import Collection
 
@@ -21,8 +22,12 @@ def test_document_button(ensure_root_collection, authenticated_page, live_server
     authenticated_page.wait_for_selector("text=Upload a document", state="visible")
 
     # Upload example file
-    file_input = authenticated_page.query_selector(".Non-Admin-Draftail__modal form [type=file]")
-    file_input.set_input_files(os.path.join(os.path.dirname(__file__), "seed/example.txt"))
+    file_input = authenticated_page.query_selector(
+        ".Non-Admin-Draftail__modal form [type=file]"
+    )
+    file_input.set_input_files(
+        os.path.join(os.path.dirname(__file__), "seed/example.txt")
+    )
 
     # Name example file
     authenticated_page.fill(".Non-Admin-Draftail__modal form [type=text]", "whatever")

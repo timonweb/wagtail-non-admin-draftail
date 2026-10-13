@@ -18,7 +18,9 @@ class NonAdminDraftailRichTextArea(DraftailRichTextArea):
         ```
     """
 
-    template_name = "wagtail_non_admin_draftail/widgets/non_admin_draftail_rich_text_area.html"
+    template_name = (
+        "wagtail_non_admin_draftail/widgets/non_admin_draftail_rich_text_area.html"
+    )
 
     def get_context(self, name, value, attrs):
         self.replace_admin_chooser_urls(self.options)

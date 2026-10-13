@@ -44,7 +44,7 @@ $spacing-modal: 0.5rem;
     z-index: $modal-z-index;
     background-color: $color-bg-modal;
     animation: modal-in 0.2s $easing-circ 0s backwards;
-    color: #03686A;
+    color: #03686a;
   }
 }
 
@@ -60,6 +60,6 @@ $spacing-modal: 0.5rem;
   svg {
     width: 1em;
     height: 1em;
-    margin-right: .25rem;
+    margin-right: 0.25rem;
   }
 }

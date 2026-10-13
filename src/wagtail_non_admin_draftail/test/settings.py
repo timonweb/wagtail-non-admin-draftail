@@ -9,6 +9,7 @@ import os
 
 import dj_database_url
 
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(os.path.dirname(PROJECT_DIR))
 
@@ -77,7 +78,9 @@ TEMPLATES = [
 PASSWORD_HASHERS = ("django.contrib.auth.hashers.MD5PasswordHasher",)
 
 DATABASES = {
-    "default": dj_database_url.config(default="sqlite:///test_wagtail_non_admin_draftail.db"),
+    "default": dj_database_url.config(
+        default="sqlite:///test_wagtail_non_admin_draftail.db"
+    ),
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

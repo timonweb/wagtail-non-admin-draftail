@@ -14,7 +14,9 @@ def get_chooser_context():
     return {
         "step": "choose",
         "error_label": _("Server Error"),
-        "error_message": _("Report this error to your webmaster with the following information:"),
+        "error_message": _(
+            "Report this error to your webmaster with the following information:"
+        ),
     }
 
 

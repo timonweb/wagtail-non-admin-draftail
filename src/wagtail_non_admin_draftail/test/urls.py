@@ -6,12 +6,15 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from .views import CreateNoteView
 
+
 urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path(
         "non-admin-draftail/",
-        include("wagtail_non_admin_draftail.urls", namespace="wagtail_non_admin_draftail"),
+        include(
+            "wagtail_non_admin_draftail.urls", namespace="wagtail_non_admin_draftail"
+        ),
     ),
     path("form/", CreateNoteView.as_view(), name="form"),
     path("login/", LoginView.as_view(), name="login"),

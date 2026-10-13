@@ -44,6 +44,7 @@ Issues = "https://github.com/timonweb/wagtail-non-admin-draftail/issues"
 [dependency-groups]
 dev = [
     "dj-database-url>=3.1.2",
+    "prek>=0.5.5",
     "pytest>=9.0",
     "pytest-cov>=7.1.0",
     "pytest-django>=4.12.0",
