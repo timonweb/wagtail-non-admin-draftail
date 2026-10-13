@@ -36,6 +36,12 @@ def user(django_user_model):
 
 
 @pytest.fixture
+def logged_in_client(client, user):
+    client.force_login(user)
+    return client
+
+
+@pytest.fixture
 def authenticated_page(user, page, live_server):
     return _log_in_user(page, user, DEFAULT_TEST_PASSWORD, live_server.url)
 

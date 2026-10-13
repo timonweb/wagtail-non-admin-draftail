@@ -36,18 +36,9 @@ if apps.is_installed("wagtail.embeds"):
     ]
 
 if apps.is_installed("wagtail.documents"):
-    from .views.document import (
-        document_chooser,
-        document_chooser_upload,
-        document_chosen,
-    )
+    from .views.document import document_chooser, document_chooser_upload
 
     urlpatterns += [
         path("document-chooser/", document_chooser, name="document-chooser"),
-        path(
-            "document-chooser/<int:document_id>/",
-            document_chosen,
-            name="document-chosen",
-        ),
         path("document-upload/", document_chooser_upload, name="document-upload"),
     ]

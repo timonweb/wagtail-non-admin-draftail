@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.documents import get_document_model
@@ -35,21 +34,6 @@ def document_chooser(request):
         None,
         {"uploadform": uploadform},
         json_data={"step": "choose"},
-    )
-
-
-def document_chosen(request, document_id):
-    document = get_object_or_404(get_document_model(), id=document_id)
-
-    return render_modal_workflow(
-        request,
-        None,
-        None,
-        None,
-        json_data={
-            "step": "chosen",
-            "result": get_document_result_data(document),
-        },
     )
 
 

@@ -5,7 +5,7 @@
 {% block form %}
     {% if uploadform %}
         <div id="tab-upload">
-        <form data-chooser-modal-creation-form class="image-upload" action="{% url 'wagtail_non_admin_draftail:image-chooser-and-upload' %}{% if will_select_format %}?select_format=true{% endif %}"
+        <form data-chooser-modal-creation-form class="image-upload" action="{% url 'wagtail_non_admin_draftail:image-chooser-and-upload' %}"
               method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ uploadform.as_p }}

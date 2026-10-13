@@ -7,6 +7,9 @@ from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm
 from wagtail.search import index as search_index
 
+from wagtail_non_admin_draftail.conf import (
+    WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME,
+)
 from wagtail_non_admin_draftail.forms import get_image_form
 
 
@@ -39,27 +42,17 @@ def image_chooser_and_upload(request):
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
 
-            if request.GET.get("select_format"):
-                form = ImageInsertionForm(
-                    initial={"alt_text": image.default_alt_text},
-                    prefix="image-chooser-insertion",
-                )
-                return render_modal_workflow(
-                    request,
-                    "wagtail_non_admin_draftail/image/select_format.html",
-                    None,
-                    {"image": image, "form": form},
-                    json_data={"step": "select_format"},
-                )
-            else:
-                # not specifying a format; return the image details now
-                return render_modal_workflow(
-                    request,
-                    None,
-                    None,
-                    None,
-                    json_data={"step": "chosen"},
-                )
+            form = ImageInsertionForm(
+                initial={"alt_text": image.default_alt_text},
+                prefix="image-chooser-insertion",
+            )
+            return render_modal_workflow(
+                request,
+                "wagtail_non_admin_draftail/image/select_format.html",
+                None,
+                {"image": image, "form": form},
+                json_data={"step": "select_format"},
+            )
     else:
         form = ImageForm(user=request.user, prefix="image-chooser-upload")
 
@@ -67,17 +60,20 @@ def image_chooser_and_upload(request):
         request,
         "wagtail_non_admin_draftail/image/upload.html",
         None,
-        {
-            "uploadform": form,
-            "will_select_format": request.GET.get("select_format"),
-        },
+        {"uploadform": form},
         json_data={"step": "choose"},
     )
 
 
 @login_required
 def image_select_format(request, image_id):
-    image = get_object_or_404(get_image_model(), id=image_id)
+    # Only images uploaded through the public chooser can be re-opened, so frontend
+    # users can't pull renditions of images from the admin's private collections.
+    image = get_object_or_404(
+        get_image_model(),
+        id=image_id,
+        collection__name=WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME,
+    )
 
     if request.method == "POST":
         form = ImageInsertionForm(

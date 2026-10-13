@@ -101,3 +101,7 @@ LOGIN_REDIRECT_URL = "form"
 
 WAGTAIL_SITE_NAME = "Wagtail non-admin Draftail test site"
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
+
+WAGTAILEMBEDS_FINDERS = [
+    {"class": "wagtail_non_admin_draftail.test.embed_finders.YouTubeTestEmbedFinder"}
+]
