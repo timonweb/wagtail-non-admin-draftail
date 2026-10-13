@@ -29,7 +29,7 @@ repos:
     rev: 7.3.0
     hooks:
       - id: flake8
-        entry: flake8 --config=tox.ini
+        args: [ "--max-line-length=119", "--select=C,E,F,W,B,B950,T", "--extend-ignore=E231,E501,W503" ]
         additional_dependencies:
           - flake8-bugbear
           - flake8-comprehensions

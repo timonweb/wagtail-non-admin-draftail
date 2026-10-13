@@ -87,46 +87,36 @@ Assuming the following steps:
 
 # Contributing
 
-## How to run the example project locally
-To contribute, you may want to run the local project. Here is how to do it:
+## How to run the test project locally
+To contribute, you may want to run the local test project. Here is how to do it:
 
-1. This project uses [Poetry](https://python-poetry.org/) for packaging and dependency management (if you have Poetry installed, skip this step):
-    ```
-    pip install poetry
-    ```
+1. This project uses [uv](https://docs.astral.sh/uv/) for packaging and dependency management. Install it if you don't have it yet.
 
-2. Clone the repo:
+2. Clone the repo and change into the cloned directory:
     ```
     git clone https://github.com/timonweb/wagtail-non-admin-draftail.git
-    ```
-
-3. Change into the cloned directory:
-    ```
     cd wagtail-non-admin-draftail
     ```
 
-4. Install dependencies with Poetry:
+3. Install dependencies:
     ```
-    poetry install
-    ```
-
-5. Run the project with Poetry:
-    ```
-    poetry run python manage.py runserver
+    uv sync --dev
     ```
 
-6. Open your browser and go to the test form page: [http://127.0.0.1:8000/example/form/](http://127.0.0.1:8000/example/form/)
+4. Set up the database and run the test project:
+    ```
+    uv run testmanage.py migrate
+    uv run testmanage.py createsuperuser
+    uv run testmanage.py runserver
+    ```
+
+5. Open your browser and go to the test form page: [http://127.0.0.1:8000/form/](http://127.0.0.1:8000/form/)
 
 ## How to run the test suite
-Assuming you have completed steps 1–4 above, you can run the `pytest` test suite with the following command:
+Assuming you have completed steps 1–3 above, install the Playwright browser used by the end-to-end tests, then run `pytest`:
 ```
-poetry run pytest
-```
-
-If tests fail and the installation is fresh, make sure that Playwright (the end-to-end test library used) is installed. Run the following command to install it:
-
-```
-poetry run python -m playwright install chromium
+uv run playwright install chromium
+uv run pytest
 ```
 
 # Created by

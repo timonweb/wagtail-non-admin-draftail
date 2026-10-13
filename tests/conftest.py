@@ -1,10 +1,22 @@
+import os
+
 import pytest
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 from wagtail.models import Collection
 
+# Playwright's sync API runs an event loop in the test thread, which trips
+# Django's async-safety check on every ORM call made from the test.
+os.environ.setdefault("DJANGO_ALLOW_ASYNC_UNSAFE", "true")
+
+DEFAULT_TEST_USERNAME = "testuser@example.com"
 DEFAULT_TEST_PASSWORD = "testuser"
-FORM_PAGE_URL = reverse("example:form")
+FORM_PAGE_URL = reverse("form")
+
+
+@pytest.fixture(autouse=True)
+def temporary_media_dir(settings, tmp_path):
+    settings.MEDIA_ROOT = tmp_path / "media"
 
 
 @pytest.fixture()
@@ -15,8 +27,10 @@ def page(page, live_server):
 
 
 @pytest.fixture
-def user(django_user_model, faker):
-    return django_user_model.objects.create(username=faker.email(), password=make_password(DEFAULT_TEST_PASSWORD))
+def user(django_user_model):
+    return django_user_model.objects.create(
+        username=DEFAULT_TEST_USERNAME, password=make_password(DEFAULT_TEST_PASSWORD)
+    )
 
 
 @pytest.fixture

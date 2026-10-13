@@ -1,0 +1,14 @@
+{% extends "wagtail_non_admin_draftail_test/base.html" %}
+
+{% block wagtail_non_admin_draftail_head %}
+    {% include "wagtail_non_admin_draftail/draftail_media.html" %}
+{% endblock wagtail_non_admin_draftail_head %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form }}
+        <button type="submit">Save</button>
+    </form>
+{% endblock content %}

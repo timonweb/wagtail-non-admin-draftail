@@ -71,9 +71,6 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# pyenv
-.python-version
-
 # celery beat schedule file
 celerybeat-schedule
 
@@ -123,6 +120,13 @@ Temporary Items
 .apdisk
 
 .idea
+.claude
 node_modules
 media/
 *.sqlite
+*.sqlite3
+*.db
+/test-media
+/test-static
+
+_devcontext/

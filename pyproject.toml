@@ -1,53 +1,69 @@
-[tool.poetry]
-name = "wagtail_non_admin_draftail"
+[project]
+name = "wagtail-non-admin-draftail"
 version = "0.20.0"
-description = "You can now use Wagtail Draftail editor on non-admin pages"
-authors = ["Tim Kamanin <tim@timonweb.com>"]
+description = "Use the Wagtail Draftail editor on non-admin pages"
+readme = "README.md"
 license = "MIT"
-homepage = "https://timonweb.com"
-repository = "https://github.com/timonweb/wagtail-non-admin-draftail"
+license-files = ["LICENSE"]
+authors = [{ name = "Tim Kamanin", email = "tim@timonweb.com" }]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Framework :: Django",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
+    "Framework :: Django :: 6.1",
+    "Framework :: Wagtail",
+    "Framework :: Wagtail :: 7",
+    "Framework :: Wagtail :: 8",
+]
+# See: https://devguide.python.org/versions/#supported-versions
+requires-python = ">=3.11"
+dependencies = [
+    # https://www.djangoproject.com/download/#supported-versions
+    "django>=5.2",
+    # https://github.com/wagtail/wagtail/wiki/Release-schedule
+    # https://docs.wagtail.org/en/latest/releases/upgrading.html#compatible-django-python-versions
+    "wagtail>=7.4",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10.0"
-wagtail = "^7.0.1"
+[project.urls]
+Homepage = "https://github.com/timonweb/wagtail-non-admin-draftail"
+Repository = "https://github.com/timonweb/wagtail-non-admin-draftail"
+Changelog = "https://github.com/timonweb/wagtail-non-admin-draftail/blob/master/CHANGELOG.md"
+Documentation = "https://github.com/timonweb/wagtail-non-admin-draftail/blob/master/README.md"
+Issues = "https://github.com/timonweb/wagtail-non-admin-draftail/issues"
 
-[poetry.group.dev.dependencies]
-pytest-django = "^4.4.0"
-pytest-playwright = "^0.3.3"
-django-managepy-anywhere = "^2.0"
-pytest-faker = "^2.0.0"
-pytest-env = "^0.8.2"
-pre-commit = "^3.3.3"
-flake8 = "^6.0.0"
-black = "^23.3.0"
-isort = "^5.12.0"
+[dependency-groups]
+dev = [
+    "dj-database-url>=3.1.2",
+    "pytest>=9.0",
+    "pytest-cov>=7.1.0",
+    "pytest-django>=4.12.0",
+    "pytest-playwright>=0.7.0",
+    "ruff>=0.15.9",
+]
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["uv_build>=0.12.6,<0.13"]
+build-backend = "uv_build"
 
-[tool.black]
-line-length = 88
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
+[tool.uv.build-backend]
+module-name = "wagtail_non_admin_draftail"
+source-exclude = [
+    "wagtail_non_admin_draftail/static_src",
+    "wagtail_non_admin_draftail/test",
+    "testmanage.py",
+    ".*",
+]
 
-[tool.isort]
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-ensure_newline_before_comments = true
-line_length = 88
-known_third_party = "django,wagtail,pytz,redis,requests,rest_framework"
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "wagtail_non_admin_draftail.test.settings"
+testpaths = ["tests"]

@@ -1,14 +1,29 @@
+"""
+Django settings for the wagtail_non_admin_draftail test app.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/stable/topics/settings/
+"""
+
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import dj_database_url
 
-SECRET_KEY = "secretkey"
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(PROJECT_DIR))
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = "not-a-secure-key"  # noqa: S105
+
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver"]
+
 
 INSTALLED_APPS = [
+    "wagtail_non_admin_draftail",
+    "wagtail_non_admin_draftail.test",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -27,8 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "wagtail_non_admin_draftail",
-    "example",
 ]
 
 MIDDLEWARE = [
@@ -42,7 +55,7 @@ MIDDLEWARE = [
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
-ROOT_URLCONF = "test_project.urls"
+ROOT_URLCONF = "wagtail_non_admin_draftail.test.urls"
 
 TEMPLATES = [
     {
@@ -55,20 +68,33 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-            ],
+            ]
         },
-    },
+    }
 ]
 
+# Don't use the intentionally slow default password hasher.
+PASSWORD_HASHERS = ("django.contrib.auth.hashers.MD5PasswordHasher",)
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "local.sqlite",
-    }
+    "default": dj_database_url.config(default="sqlite:///test_wagtail_non_admin_draftail.db"),
 }
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "UTC"
+USE_I18N = True
+USE_TZ = True
+
+STATIC_ROOT = os.path.join(BASE_DIR, "test-static")
 STATIC_URL = "/static/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "test-media")
 MEDIA_URL = "/media/"
 
-WAGTAIL_SITE_NAME = "Test project"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "form"
+
+WAGTAIL_SITE_NAME = "Wagtail non-admin Draftail test site"
+WAGTAILADMIN_BASE_URL = "http://localhost:8000"
