@@ -56,6 +56,7 @@ test-lowest-deps:
     uv run --isolated --python "$lowest_python" --resolution lowest-direct pytest
 
 test-highest-deps:
+    uv run --isolated --with 'Django, Wagtail' playwright install chromium
     uv run --isolated --with 'Django, Wagtail' pytest
 
 # Run tests with coverage.

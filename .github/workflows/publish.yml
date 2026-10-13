@@ -1,0 +1,86 @@
+# See https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+# for a detailed guide
+name: Publish to PyPI
+
+on:
+  release:
+    # https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#release
+    types: [published]
+
+permissions: {}
+
+jobs:
+  test:
+    # Not the `$/` self-repository syntax yet: actionlint can't parse it, and a
+    # mistake here would only surface when a release is published.
+    uses: ./.github/workflows/test.yml # zizmor: ignore[self-repository]
+    permissions:
+      contents: read
+  compilemessages:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install gettext to compile translation files
+        run: sudo apt-get install -y gettext
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        # Prevent cache poisoning by disabling cache.
+        with:
+          enable-cache: false
+      - run: uv run ../../testmanage.py compilemessages
+        # Need to be in the package directory, otherwise compilemessages
+        # will try to compile other apps too
+        working-directory: src/wagtail_non_admin_draftail
+      - name: Upload compiled message catalogs
+        # There's nothing to upload until the first .po catalog is added.
+        if: hashFiles('src/**/locale/**/*.po') != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: compiled-message-catalogs
+          if-no-files-found: error
+          path: |
+            ./src/wagtail_non_admin_draftail/**/*.mo
+  build:
+    needs: [test, compilemessages]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        # Prevent cache poisoning by disabling cache.
+        with:
+          enable-cache: false
+      - name: Download compiled message catalogs
+        if: hashFiles('src/**/locale/**/*.po') != ''
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          # The artifact is rooted at the upload path's non-wildcard prefix,
+          # so extract it back into the package directory.
+          name: compiled-message-catalogs
+          path: src/wagtail_non_admin_draftail
+      - run: uv build --verbose
+      # Smoke tests with ready-to-publish package.
+      - run: uv run --isolated --no-project --with dist/*.whl .github/scripts/smoke_test_dist.py
+      - run: uv run --isolated --no-project --with dist/*.tar.gz .github/scripts/smoke_test_dist.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: ./dist
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: none
+      id-token: write # required for trusted publishing
+    environment: pypi
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: artifact/
+          print-hash: true

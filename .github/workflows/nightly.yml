@@ -1,0 +1,57 @@
+name: Nightly Wagtail Test
+
+# Tests each new stable Wagtail release once. A cache entry per version
+# records a successful run, so later nights skip that version; failures
+# aren't recorded and are retried until they pass.
+# Wagtail main isn't used because a git install has no compiled admin JS,
+# which the e2e tests need.
+
+on:
+  schedule:
+    - cron: '52 2 * * 1,3,5'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      latest: ${{ steps.latest.outputs.version }}
+      run: ${{ steps.tested.outputs.cache-hit != 'true' }}
+    steps:
+      - id: latest
+        run: |
+          version=$(curl -fsS https://pypi.org/pypi/wagtail/json | jq -r .info.version)
+          if [ -z "$version" ] || [ "$version" = "null" ]; then
+            echo "::error::Could not determine the latest Wagtail version"
+            exit 1
+          fi
+          echo "Latest Wagtail on PyPI: $version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - id: tested
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .nightly-tested
+          key: nightly-wagtail-${{ steps.latest.outputs.version }}
+          lookup-only: true
+
+  test:
+    needs: check
+    if: needs.check.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    env:
+      WAGTAIL_VERSION: ${{ needs.check.outputs.latest }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+      - run: uv run --isolated --with "wagtail==$WAGTAIL_VERSION" --with Django playwright install --with-deps chromium
+      - run: uv run --isolated --with "wagtail==$WAGTAIL_VERSION" --with Django pytest -vv
+      - run: echo "$WAGTAIL_VERSION" > .nightly-tested
+      - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .nightly-tested
+          key: nightly-wagtail-${{ needs.check.outputs.latest }}

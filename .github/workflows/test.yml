@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - 'stable/**'
+      - 'renovate/**'
+  pull_request:
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .node-version
+      - run: npm ci
+      - uses: j178/prek-action@4e14d07f9231acabce116ccfca13b13dd9755ece # v3.0.0
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+        with:
+          just-version: '1.58.0'
+      - run: uv sync --dev
+      - run: uv run playwright install --with-deps chromium
+      - run: just coverage
+      - run: uv run ./testmanage.py check
+      - run: uv run ./testmanage.py makemigrations --check --noinput
+
+  test-lowest-deps:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+        with:
+          just-version: '1.58.0'
+      # The recipe installs the browser for its own resolution; this adds the OS packages it needs.
+      - run: uvx --from playwright playwright install-deps chromium
+      - run: just test-lowest-deps
+
+  test-highest-deps:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+        with:
+          just-version: '1.58.0'
+      # The recipe installs the browser for its own resolution; this adds the OS packages it needs.
+      - run: uvx --from playwright playwright install-deps chromium
+      - run: just test-highest-deps
+
+  test-compatibility:
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      matrix:
+        # Supported Wagtail/Django pairs not covered by test-lowest-deps
+        # (Python 3.11, Wagtail 7.4, Django 5.2) or test-highest-deps
+        # (Python 3.14, latest Wagtail and Django).
+        include:
+          - python: '3.12'
+            wagtail: 'wagtail~=7.4.0'
+            django: 'django~=6.0.0'
+          - python: '3.13'
+            wagtail: 'wagtail~=8.0'
+            django: 'django~=5.2.0'
+    env:
+      WAGTAIL: ${{ matrix.wagtail }}
+      DJANGO: ${{ matrix.django }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv run --isolated --with "$WAGTAIL" --with "$DJANGO" playwright install --with-deps chromium
+      - run: uv run --isolated --with "$WAGTAIL" --with "$DJANGO" pytest
