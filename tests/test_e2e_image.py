@@ -2,6 +2,7 @@ import os
 
 import pytest
 
+from playwright.sync_api import expect
 from wagtail.images import get_image_model
 from wagtail.models import Collection
 
@@ -26,6 +27,11 @@ def test_image_button(ensure_root_collection, authenticated_page, live_server):
     )
     file_input.set_input_files(
         os.path.join(os.path.dirname(__file__), "seed/example.png")
+    )
+
+    # The title is prefilled from the file name
+    expect(authenticated_page.locator("#id_image-chooser-upload-title")).to_have_value(
+        "example"
     )
 
     # Submit the form

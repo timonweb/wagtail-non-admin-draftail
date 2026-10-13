@@ -2,12 +2,7 @@ from django import forms
 from django.forms import modelform_factory
 from wagtail.admin.forms.collections import BaseCollectionMemberForm
 from wagtail.images.forms import formfield_for_dbfield
-
-
-try:
-    from wagtail.models import Collection
-except ImportError:
-    from wagtail.core.models import Collection
+from wagtail.models import Collection
 
 from .conf import WAGTAIL_NON_ADMIN_DRAFTAIL_PUBLIC_COLLECTION_NAME
 
@@ -21,7 +16,11 @@ class PublicCollectionMemberForm(BaseCollectionMemberForm):
         kwargs.pop("user")
         super(forms.ModelForm, self).__init__(*args, **kwargs)
 
-        # self.fields['collection'].required = False
+        # Point the w-sync controller on the file input at this form's (prefixed)
+        # title field, as Wagtail's BaseImageForm/BaseDocumentForm do.
+        self.fields["file"].widget.attrs["data-w-sync-target-value"] = (
+            f"#{self['title'].id_for_label}"
+        )
 
         # Get or initiate the Public uploads collection.
         try:
@@ -48,6 +47,22 @@ class PublicCollectionBaseImageForm(PublicCollectionMemberForm):
     pass
 
 
+def _sync_title_file_input(sync_event_name):
+    """
+    A file input that prefills the title field from the chosen file's name, using
+    the same Stimulus w-sync wiring as Wagtail's own image and document forms.
+    """
+    return forms.FileInput(
+        attrs={
+            "data-controller": "w-sync",
+            "data-action": "input->w-sync#apply",
+            "data-w-sync-bubbles-param": "true",
+            "data-w-sync-name-value": sync_event_name,
+            "data-w-sync-normalize-value": "true",
+        }
+    )
+
+
 def get_image_form(model):
     fields = ("title", "file")
 
@@ -57,7 +72,7 @@ def get_image_form(model):
         fields=fields,
         formfield_callback=formfield_for_dbfield,
         widgets={
-            "file": forms.FileInput(),
+            "file": _sync_title_file_input("wagtail:images-upload"),
         },
     )
 
@@ -74,6 +89,6 @@ def get_document_form(model):
         form=PublicCollectionBaseDocumentForm,
         fields=fields,
         widgets={
-            "file": forms.FileInput(),
+            "file": _sync_title_file_input("wagtail:documents-upload"),
         },
     )

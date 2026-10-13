@@ -2,6 +2,7 @@ import os
 
 import pytest
 
+from playwright.sync_api import expect
 from wagtail.documents import get_document_model
 from wagtail.models import Collection
 
@@ -29,8 +30,13 @@ def test_document_button(ensure_root_collection, authenticated_page, live_server
         os.path.join(os.path.dirname(__file__), "seed/example.txt")
     )
 
+    # The title is prefilled from the file name. Wait for it before overwriting, as the
+    # prefill is debounced and would otherwise race the fill below.
+    title_input = authenticated_page.locator("#id_document-chooser-upload-title")
+    expect(title_input).to_have_value("example")
+
     # Name example file
-    authenticated_page.fill(".Non-Admin-Draftail__modal form [type=text]", "whatever")
+    title_input.fill("whatever")
 
     # Submit the form
     authenticated_page.click(".Non-Admin-Draftail__modal form [type=submit]")

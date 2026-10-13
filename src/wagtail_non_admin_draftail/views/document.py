@@ -1,23 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import gettext as _
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.documents import get_document_model
 from wagtail.search import index as search_index
 
 from wagtail_non_admin_draftail.forms import get_document_form
-
-
-def get_chooser_context():
-    """construct context variables needed by the chooser JS"""
-    return {
-        "step": "choose",
-        "error_label": _("Server Error"),
-        "error_message": _(
-            "Report this error to your webmaster with the following information:"
-        ),
-    }
 
 
 def get_document_result_data(document):
@@ -45,11 +33,8 @@ def document_chooser(request):
         request,
         "wagtail_non_admin_draftail/document/upload.html",
         None,
-        {
-            "uploadform": uploadform,
-            "is_searching": False,
-        },
-        json_data=get_chooser_context(),
+        {"uploadform": uploadform},
+        json_data={"step": "choose"},
     )
 
 
@@ -109,12 +94,10 @@ def document_chooser_upload(request):
     else:
         form = DocumentForm(user=request.user, prefix="document-chooser-upload")
 
-    documents = Document.objects.order_by("title")
-
     return render_modal_workflow(
         request,
         "wagtail_non_admin_draftail/document/upload.html",
         None,
-        {"documents": documents, "uploadform": form},
-        json_data=get_chooser_context(),
+        {"uploadform": form},
+        json_data={"step": "choose"},
     )

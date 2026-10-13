@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags wagtail_non_admin_draftail_tags %}
+{% load wagtailadmin_tags %}
 
 <div data-sprite></div>
 <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% icon_sprite_url %}"></script>
@@ -9,7 +9,7 @@
         in your web browser</a>.
 </noscript>
 
-<script id="wagtail-config" type="application/json">{"CSRF_TOKEN": "", "CSRF_HEADER_NAME": "X-Csrftoken", "ADMIN_URLS": {}, "WAGTAIL_AUTO_UPDATE_PREVIEW": false, "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL": 500}</script>
+<script id="wagtail-config" type="application/json">{"CSRF_TOKEN": "", "CSRF_HEADER_NAME": "X-Csrftoken", "ADMIN_URLS": {}}</script>
 
 {# Core scripts used in Wagtail admin #}
 <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.6.0.min.js' %}"></script>
@@ -18,33 +18,9 @@
 <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/telepath/telepath.js' %}"></script>
 
-{# Add JavaScript that comes from inser_editor_js Wagtail hook #}
+{# Add JavaScript that comes from insert_editor_js Wagtail hook #}
 {% hook_output 'insert_editor_js' %}
 
 {# We replace wagtailadmin/js/modal-workflow with the following file to add distinct css class to modal #}
 <script src="{% versioned_static 'wagtail_non_admin_draftail/modal-workflow.js' %}"></script>
-
-{# Override url callbacks for non-admin Draftail #}
-{% app_is_installed "wagtail.images" as wagtail_images_is_installed %}
-{% app_is_installed "wagtail.documents" as wagtail_documents_is_installed %}
-{% app_is_installed "wagtail.embeds" as wagtail_embeds_is_installed %}
-
-<script>
-    window.chooserUrls = window.chooserUrls || {};
-    {% if wagtail_images_is_installed %}
-        window.chooserUrls.imageChooser = "{% url 'wagtail_non_admin_draftail:image-chooser-and-upload' %}";
-    {% endif %}
-    {% if wagtail_documents_is_installed %}
-        window.chooserUrls.documentChooser = "{% url 'wagtail_non_admin_draftail:document-chooser' %}";
-    {% endif %}
-    {% if wagtail_embeds_is_installed %}
-        window.chooserUrls.embedsChooser = "{% url 'wagtail_non_admin_draftail:embed-chooser' %}";
-    {% endif %}
-    window.chooserUrls.pageChooser = "{% url 'wagtail_non_admin_draftail:external-link' %}";
-    window.chooserUrls.externalLinkChooser = "{% url 'wagtail_non_admin_draftail:external-link' %}";
-    window.chooserUrls.emailLinkChooser = "{% url 'wagtail_non_admin_draftail:email-link' %}";
-    window.chooserUrls.phoneLinkChooser = "{% url 'wagtail_non_admin_draftail:phone-link' %}";
-    window.chooserUrls.anchorLinkChooser = "{% url 'wagtail_non_admin_draftail:anchor-link' %}";
-</script>
