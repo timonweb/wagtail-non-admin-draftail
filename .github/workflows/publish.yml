@@ -1,22 +1,60 @@
 # See https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
 # for a detailed guide
-name: Publish to PyPI
+name: Release
 
+# Pushing a version tag (vX.Y.Z) publishes that version to PyPI and then
+# creates the matching GitHub release, with notes taken from CHANGELOG.md.
 on:
-  release:
-    # https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#release
-    types: [published]
+  push:
+    tags: ['v*']
 
 permissions: {}
 
 jobs:
+  # Fails fast, before anything is built or published, when the tag doesn't
+  # match pyproject.toml or the CHANGELOG has no section for the version.
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check the tag matches the package version
+        run: |
+          version=$(python3 -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
+          if [ "$TAG" != "v$version" ]; then
+            echo "::error::Tag $TAG doesn't match the version in pyproject.toml (v$version)"
+            exit 1
+          fi
+      - name: Extract the release notes from CHANGELOG.md
+        run: |
+          awk -v heading="## [${TAG#v}]" '
+            index($0, heading) == 1 { found = 1; next }
+            found && (/^## \[/ || /^<!--/) { exit }
+            found { print }
+          ' CHANGELOG.md | sed -e '/./,$!d' > release-notes.md
+          if ! grep -q '[^[:space:]]' release-notes.md; then
+            echo "::error::CHANGELOG.md has no entries under '## [${TAG#v}]'"
+            exit 1
+          fi
+          cat release-notes.md
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-notes
+          path: release-notes.md
   test:
+    needs: check
     # Not the `$/` self-repository syntax yet: actionlint can't parse it, and a
-    # mistake here would only surface when a release is published.
+    # mistake here would only surface when a version tag is pushed.
     uses: ./.github/workflows/test.yml # zizmor: ignore[self-repository]
     permissions:
       contents: read
   compilemessages:
+    needs: check
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -70,6 +108,7 @@ jobs:
       - run: uv run --isolated --no-project --with dist/*.tar.gz .github/scripts/smoke_test_dist.py
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
+          name: dist
           path: ./dist
   publish:
     needs: build
@@ -80,7 +119,30 @@ jobs:
     environment: pypi
     steps:
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: dist
+          path: dist
       - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
         with:
-          packages-dir: artifact/
+          packages-dir: dist/
           print-hash: true
+  # Runs only after PyPI accepted the upload, so a GitHub release never exists
+  # for a version that isn't installable.
+  github-release:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # required to create the release
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: dist
+          path: dist
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-notes
+      - run: gh release create "$TAG" dist/* --verify-tag --title "$TAG" --notes-file release-notes.md

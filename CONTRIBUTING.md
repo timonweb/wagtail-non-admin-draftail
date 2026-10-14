@@ -152,9 +152,13 @@ On the `master` branch:
 
 1. Update the version number in `pyproject.toml`.
 2. Move the `[Unreleased]` entries in the [CHANGELOG](CHANGELOG.md) under the new version and date.
-3. Commit and tag the release: `git commit -m "Release vX.Y.Z" && git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push --follow-tags`.
-4. Create a GitHub release from the tag. The `Publish to PyPI` workflow runs the tests, compiles the translations, builds and
-   smoke-tests the wheel and sdist, and publishes them to PyPI.
+3. Commit, tag and push the release: `git commit -m "Release vX.Y.Z" && git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push --follow-tags`.
+
+Pushing the tag starts the `Release` workflow (`.github/workflows/publish.yml`). It first checks that the tag matches the version in
+`pyproject.toml` and that the CHANGELOG has a section for that version, and stops if either is wrong. Then it runs the tests, compiles
+the translations, builds and smoke-tests the wheel and sdist, and publishes them to PyPI. Once PyPI has accepted them, it creates
+the GitHub release, with the CHANGELOG section as release notes and the wheel and sdist attached. You don't create the release by
+hand.
 
 ### One-time maintainer setup
 
