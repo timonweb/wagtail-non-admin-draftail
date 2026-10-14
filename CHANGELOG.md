@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-14
+
+### Added
+
+- A looping demo GIF of the editor at the top of the README, so the PyPI page shows the editor in action.
+
 ## [1.0.0] - 2026-10-14
 
 ### Added

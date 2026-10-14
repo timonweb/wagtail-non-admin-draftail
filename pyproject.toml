@@ -1,6 +1,6 @@
 [project]
 name = "wagtail-non-admin-draftail"
-version = "1.0.0"
+version = "1.0.1"
 description = "Use the Wagtail Draftail editor on non-admin pages"
 readme = "README.md"
 license = "MIT"
