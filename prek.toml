@@ -8,7 +8,8 @@ default_language_version = { python = "python3" }
 [[repos]]
 repo = "builtin"
 hooks = [
-  { id = "check-added-large-files" },
+  # The README demo GIF is deliberately bigger than the 500 KB default.
+  { id = "check-added-large-files", exclude = "^docs/demo\\.gif$" },
   { id = "check-case-conflict" },
   { id = "check-executables-have-shebangs" },
   { id = "check-illegal-windows-names" },

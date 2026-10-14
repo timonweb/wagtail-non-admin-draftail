@@ -42,6 +42,7 @@ just compilemessages   # Compile translation message catalogs for use.
 just coverage          # Run tests with coverage.
 just createsuperuser   # Create a demo user.
 just demo              # Run the demo application (migrate + runserver).
+just demo-gif          # Record docs/demo.gif, the editor demo in the README (needs ffmpeg).
 just format            # Run all formatters.
 just format-client     # Format the client code with Prettier.
 just format-server     # Format the server code with Ruff.
@@ -60,6 +61,18 @@ just test-lowest-deps  # Run tests against the lowest supported Python, Django a
 ```
 
 Run `just lint` and `just test` before opening a pull request.
+
+## The README demo GIF
+
+`docs/demo.gif` is recorded from the demo site by `demo/record_demo_gif.py`. It starts a throwaway demo server with a temporary
+database and media folder, types into the editor with Playwright, and converts the recording with [ffmpeg](https://ffmpeg.org/).
+After a change to the editor's look, re-record it:
+
+```sh
+just demo-gif
+```
+
+The embed step fetches a real YouTube video, so it needs network access.
 
 ## Writing tests
 

@@ -85,6 +85,10 @@ shell:
 # Run the demo application.
 demo: migrate runserver
 
+# Record docs/demo.gif, the editor demo shown in the README. Needs ffmpeg.
+demo-gif:
+    uv run ./demo/record_demo_gif.py
+
 # Compile the SCSS sources into the shipped draftail.css.
 build-css:
     npm run build:css

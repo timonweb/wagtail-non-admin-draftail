@@ -6,6 +6,8 @@ want it on a regular Django form page (a job board, a comment box, a "write your
 That's why I built **Non-admin Draftail**. It takes Draftail out of the admin and lets you drop it into any Django form, images,
 documents, embeds and links included. All you need is Wagtail installed, with its admin and documents URLs routed.
 
+![Draftail on a regular Django form: bold text, a link, a document, an image upload and a YouTube embed](https://raw.githubusercontent.com/timonweb/wagtail-non-admin-draftail/master/docs/demo.gif)
+
 ## Links
 
 - [Changelog](https://github.com/timonweb/wagtail-non-admin-draftail/blob/master/CHANGELOG.md)
