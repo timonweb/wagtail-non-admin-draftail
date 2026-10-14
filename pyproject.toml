@@ -1,13 +1,13 @@
 [project]
 name = "wagtail-non-admin-draftail"
-version = "0.20.0"
+version = "1.0.0"
 description = "Use the Wagtail Draftail editor on non-admin pages"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Tim Kamanin", email = "tim@timonweb.com" }]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python",

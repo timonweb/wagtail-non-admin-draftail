@@ -18,7 +18,7 @@ documents, embeds and links included. All you need is Wagtail installed, with it
 
 | Package version       | Wagtail          | Django | Python |
 | --------------------- | ---------------- | ------ | ------ |
-| Unreleased (`master`) | 7.4 LTS and 8.x  | 5.2+   | 3.11+  |
+| 1.0.0                 | 7.4 LTS and 8.x  | 5.2+   | 3.11+  |
 | 0.20.0                | 7.0.1 to 7.x (< 8) | 4.2+ | 3.10+  |
 | 0.18.x                | 5.0+             | 3.2+   | 3.8+   |
 
