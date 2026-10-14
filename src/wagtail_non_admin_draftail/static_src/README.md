@@ -1,16 +1,16 @@
-# PUBLIC DRAFTAIL
+# Editor styles
 
-This directory contains Draftail-related parts taken from the Wagtail CMS repo:
-https://github.com/wagtail/wagtail/tree/master/client
+This directory holds the SCSS sources for the editor's frontend styles. They are compiled into
+`../static/wagtail_non_admin_draftail/draftail.css`, which `draftail_media.html` loads on every page that shows the editor.
 
-By running `npm run build`, we compile a public-facing version of a draftail WYSIWYG editor.
+- `src/index.scss` is the entry point.
+- `src/styles/` holds the partials for the editor, the modals, the choosers and the tooltips.
 
-Files under `components` directory are copied over from:
+Build the CSS from the repo root:
 
-* `Draftail` - https://github.com/wagtail/wagtail/tree/master/client/src/components/Draftail
-* `Icon` - https://github.com/wagtail/wagtail/tree/master/client/src/components/Icon
-* `Portal` - https://github.com/wagtail/wagtail/tree/master/client/src/components/Portal
-* `config` - https://github.com/wagtail/wagtail/tree/master/client/src/config
+```sh
+just build-css
+```
 
-Mere alterations are made in `Icon/Icon.js` where we replace `.icon` CSS class with
-`.wagtail_non_admin_draftail-icon` to avoid possible conflicts on the frontend.
+The compiled `draftail.css` is committed and shipped in the package; this directory is not. CI doesn't rebuild the CSS, so commit the
+compiled file together with your SCSS changes.
