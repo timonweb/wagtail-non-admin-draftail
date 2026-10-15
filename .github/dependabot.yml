@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+
+  # Only uv.lock moves. The floors in pyproject.toml are support-policy
+  # decisions, made by the maintenance agent and the maintainer.
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: monthly
+    versioning-strategy: lockfile-only
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly

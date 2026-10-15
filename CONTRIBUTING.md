@@ -88,7 +88,7 @@ SCSS, run `just build-css` and commit both files.
 
 ## Continuous integration
 
-The project uses GitHub Actions. On every pull request, and on pushes to `master`, `stable/**` and `renovate/**` branches, CI:
+The project uses GitHub Actions. On every pull request, and on pushes to `master` and `stable/**` branches, CI:
 
 - Runs the linters (Ruff, prek, Prettier and Stylelint).
 - Runs the tests with coverage, Django's system checks and a missing-migrations check, for both the test app and the demo.
@@ -99,7 +99,8 @@ The project uses GitHub Actions. On every pull request, and on pushes to `master
   release changes the supported range.
 
 There's also a scheduled job (Monday, Wednesday and Friday nights, UTC) that tests each new stable Wagtail release once, so
-compatibility problems show up before `uv.lock` catches up. CodeQL and zizmor scan the code and the workflows, and Renovate keeps dependencies up to date.
+compatibility problems show up before `uv.lock` catches up. CodeQL and zizmor scan the code and the workflows. Dependabot
+(`.github/dependabot.yml`) opens monthly updates for GitHub Actions, `uv.lock` and the npm tooling.
 
 ## Code review
 
@@ -181,7 +182,6 @@ The release and security tooling needs a few settings that live outside the repo
   `publish.yml` and environment `pypi`.
 - **GitHub environment:** in the repo settings, create an environment called `pypi`. Add required reviewers if you want a manual
   approval step before publishing.
-- **Renovate:** install the [Renovate GitHub app](https://github.com/apps/renovate) on the repository.
 - **CodeQL:** keep CodeQL's "default setup" turned off in the repo's code security settings, because `codeql-analysis.yml` runs the
   advanced setup.
 - **Private vulnerability reporting:** turn it on in the repo's security settings, so [SECURITY.md](SECURITY.md) works.
