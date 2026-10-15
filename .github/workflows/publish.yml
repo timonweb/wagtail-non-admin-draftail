@@ -42,7 +42,7 @@ jobs:
             exit 1
           fi
           cat release-notes.md
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: release-notes
           path: release-notes.md
@@ -75,7 +75,7 @@ jobs:
       - name: Upload compiled message catalogs
         # There's nothing to upload until the first .po catalog is added.
         if: hashFiles('src/**/locale/**/*.po') != ''
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: compiled-message-catalogs
           if-no-files-found: error
@@ -106,7 +106,7 @@ jobs:
       # Smoke tests with ready-to-publish package.
       - run: uv run --isolated --no-project --with dist/*.whl .github/scripts/smoke_test_dist.py
       - run: uv run --isolated --no-project --with dist/*.tar.gz .github/scripts/smoke_test_dist.py
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dist
           path: ./dist
